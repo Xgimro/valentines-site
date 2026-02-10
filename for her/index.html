@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You</title>
+
+  <!-- Rubik Mono One -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- 1 СЛАЙД -->
+  <section class="hero" id="hero">
+    <div class="bg-word" id="loveWord" aria-hidden="true">любовь</div>
+
+    <div class="hint" id="hintDown">
+      <span>пролистай вниз</span><span>↓</span>
+    </div>
+  </section>
+
+  <!-- 2 СЛАЙД — СЕРДЦЕ -->
+  <section class="heart-screen" id="heartScene">
+    <div class="heart-sticky">
+      <div class="heart-wrap" id="heartBlock">
+        <div class="heart-shape">
+          <div class="heart-inner">
+            <div class="heart-line small">небольшое</div>
+            <div class="heart-line big">напоминание</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 СЛАЙД — СЧЁТЧИК -->
+  <section class="counter-screen" id="counterScene">
+    <div class="counter-wrap">
+      <div class="we-together">мы вместе</div>
+
+      <div class="counter-board" aria-live="polite">
+        <div class="tile">
+          <div class="tile-num" id="relDays">0</div>
+          <div class="tile-label" id="relDaysWord">дней</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-num" id="relHours">00</div>
+          <div class="tile-label">часов</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-num" id="relMins">00</div>
+          <div class="tile-label">минут</div>
+        </div>
+      </div>
+
+      <div class="after-counter">и каждый из них для меня важен</div>
+      <div class="hint3">листай дальше ↓</div>
+    </div>
+  </section>
+
+  <!-- 4 СЛАЙД — КАРТОЧКА -->
+  <section class="content" id="contentScene">
+    <div class="container reveal" id="card">
+      <p class="lead">
+        Я довольно часто бываю злой, нетактильной и без настроения,
+        но это никак не влияет на мои чувства к тебе.
+      </p>
+
+      <button class="more-btn" aria-expanded="false" type="button" id="moreBtn">
+        прочитать больше +
+      </button>
+
+      <div class="secret" hidden id="secret">
+        <p>
+          Я не всегда умею говорить это вслух, но ты стала для меня чем-то очень тёплым и настоящим.
+        </p>
+        <p>
+          Мне нравится, как ты смеёшься, как рассказываешь мелочи из своего дня,
+          и как рядом с тобой всё становится спокойнее.
+        </p>
+        <p>
+          Спасибо, что ты есть в моей жизни 🤍
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
