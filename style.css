@@ -1,0 +1,426 @@
+* { box-sizing: border-box; }
+
+:root{
+  --pad: clamp(16px, 4vw, 28px);
+  --cardW: min(92vw, 560px);
+  --cardPadY: clamp(22px, 4vw, 34px);
+  --cardPadX: clamp(18px, 3.5vw, 28px);
+
+  --textSize: clamp(16px, 2.2vw, 18px);
+  --loveSize: clamp(64px, 12vw, 170px);
+}
+
+body{
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #f6f3ef;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ===== 1 СЛАЙД ===== */
+.hero{
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+}
+
+/* слово "любовь" */
+.bg-word{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: var(--loveSize);
+  letter-spacing: 0.02em;
+
+  color: rgba(255,255,255,0.94);
+  filter: blur(2.6px);
+  opacity: 0.96;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+/* розовый круг позади "любовь" */
+.bg-word::before{
+  content:"";
+  position:absolute;
+  inset: 2%;
+  z-index: -1;
+
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 125, 170, 1.00) 0%,
+    rgba(255, 135, 175, 0.82) 14%,
+    rgba(255, 150, 185, 0.54) 28%,
+    rgba(255, 165, 195, 0.22) 42%,
+    rgba(255, 180, 205, 0.00) 66%
+  );
+
+  filter: blur(4px);
+}
+
+/* подсказка */
+.hint{
+  position: absolute;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: clamp(12px, 2.4vw, 14px);
+  letter-spacing: 0.03em;
+
+  background: rgba(255, 150, 185, 0.58);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border-radius: 14px;
+  padding: 10px 16px;
+
+  color: #ffffff;
+
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  box-shadow:
+    0 10px 24px rgba(255, 140, 180, 0.22),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+
+  opacity: 1;
+  filter: blur(0px);
+}
+
+@media (max-width: 430px){
+  .hint{
+    font-size: 12px;
+    padding: 9px 14px;
+    letter-spacing: 0.01em;
+  }
+}
+
+/* ===== 2 СЛАЙД — СЕРДЦЕ ===== */
+.heart-screen{
+  height: 120vh;
+}
+
+.heart-sticky{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+}
+
+/* анимационный контейнер сердца */
+.heart-wrap{
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(0);
+  will-change: opacity, filter;
+  transition: opacity 220ms linear, filter 220ms linear;
+}
+
+/* сердце-контейнер (СДЕЛАЛА ЧУТЬ МЕНЬШЕ) */
+.heart-shape{
+  position: relative;
+
+  width: clamp(260px, 64vw, 640px);
+  height: clamp(240px, 58vw, 580px);
+
+  display: grid;
+  place-items: center;
+}
+
+/* Сердце = 2 слоя: тело + мягкий ореол */
+.heart-shape::before,
+.heart-shape::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+
+  /* форма сердца (SVG mask — без ломаных краёв) */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath d='M50 86 C20 68 6 52 6 34 C6 18 18 8 32 8 C42 8 47 14 50 18 C53 14 58 8 68 8 C82 8 94 18 94 34 C94 52 80 68 50 86 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: 100% 100%;
+
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath d='M50 86 C20 68 6 52 6 34 C6 18 18 8 32 8 C42 8 47 14 50 18 C53 14 58 8 68 8 C82 8 94 18 94 34 C94 52 80 68 50 86 Z' fill='black'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100% 100%;
+}
+
+/* ВНУТРЕННЕЕ СЕРДЦЕ (форма читается) */
+.heart-shape::before{
+  inset: -6%;
+  background: radial-gradient(circle at 50% 42%,
+    rgba(255,120,170,1.00) 0%,
+    rgba(255,145,185,0.78) 34%,
+    rgba(255,175,205,0.42) 62%,
+    rgba(255,205,225,0.00) 86%
+  );
+
+  filter: blur(18px);
+  transform: scale(1.08);
+  opacity: 0.98;
+}
+
+/* ВНЕШНИЙ ОРЕОЛ (делает край максимально мягким) */
+.heart-shape::after{
+  inset: -18%;
+  background: radial-gradient(circle at 50% 44%,
+    rgba(255,150,190,0.55) 0%,
+    rgba(255,175,205,0.26) 48%,
+    rgba(255,205,225,0.00) 80%
+  );
+
+  filter: blur(46px);
+  transform: scale(1.22);
+  opacity: 0.90;
+}
+
+/* текст внутри сердца */
+.heart-inner{
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  gap: 10px;
+  place-items: center;
+  text-align: center;
+
+  transform: translateY(0);
+}
+
+.heart-line.small{
+  font-family: Georgia, serif;
+  font-size: clamp(20px, 3.4vw, 28px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(70, 40, 55, 0.76);
+}
+
+.heart-line.big{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: clamp(30px, 6.2vw, 68px);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: rgba(70, 40, 55, 0.82);
+}
+
+/* ===== 3 СЛАЙД — СЧЁТЧИК ===== */
+.counter-screen{
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.counter-screen.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.counter-wrap{
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  text-align: center;
+
+  /* одинаковые поля по бокам */
+  width: min(88vw, 640px);
+
+  /* ДЕЛАЕМ БЛОК ВЫСОКИМ, НО СИММЕТРИЧНЫМ */
+  padding:
+    clamp(100px, 14vw, 200px)   /* сверху */
+    clamp(18px, 5vw, 18px)     /* слева и справа — ОДИНАКОВО */
+    clamp(100px, 14vw, 200px);  /* снизу */
+
+  border-radius: 26px;
+
+  /* нежный розовый */
+  background: rgba(255, 165, 195, 0.22);
+  border: 1px solid rgba(255, 160, 190, 0.32);
+
+  box-shadow:
+    0 18px 40px rgba(255, 140, 180, 0.14),
+    inset 0 0 0 1px rgba(255,255,255,0.34);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+
+
+
+.we-together{
+  color: rgba(70, 40, 55, 0.70);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: clamp(13px, 2.4vw, 15px);
+}
+
+.counter-board{
+  display: grid;
+  grid-auto-flow: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  max-width: min(92vw, 560px);
+}
+
+.tile{
+  width: clamp(92px, 18vw, 150px);
+  padding: 14px 12px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(70, 40, 55, 0.10);
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.08);
+
+  color: rgba(70, 40, 55, 0.82);
+  text-align: center;
+}
+
+
+.tile-num{
+  font-family: "Rubik Mono One", sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 6vw, 54px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-num::after{
+  content:"";
+  display:block;
+  height: 1px;
+  margin: 10px 6px 0;
+  background: rgba(70, 40, 55, 0.12);
+}
+
+.tile-label{
+  margin-top: 10px;
+  font-size: clamp(12px, 2.4vw, 14px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+@media (max-width: 360px){
+  .counter-board{
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tile:nth-child(3){
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+}
+
+.after-counter{
+  color: rgba(70, 40, 55, 0.70);
+  font-style: italic;
+  max-width: min(92vw, 520px);
+  font-size: clamp(15px, 2.4vw, 17px);
+  line-height: 1.5;
+}
+
+.hint3{
+  color: rgba(70, 40, 55, 0.55);
+  font-size: clamp(14px, 2.6vw, 16px);
+  letter-spacing: 0.06em;
+}
+
+/* ===== 4 СЛАЙД — КАРТОЧКА ===== */
+.content{
+  min-height: 100svh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding: clamp(7vh, 10vh, 12vh) var(--pad) 80px;
+}
+
+.container{
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+
+  padding: var(--cardPadY) var(--cardPadX);
+  width: var(--cardW);
+
+  border-radius: clamp(16px, 3vw, 22px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+
+  text-align: center;
+}
+
+.lead{
+  margin: 0 auto 18px;
+  line-height: 1.6;
+  font-size: var(--textSize);
+  color: rgba(70, 40, 55, 0.82);
+}
+
+.reveal{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.more-btn{
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: clamp(15px, 2vw, 16px);
+  color: rgba(70, 40, 55, 0.90);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-bottom: 1px dashed rgba(70,40,55,.25);
+  transition: opacity .2s;
+}
+
+.more-btn:hover{ opacity: .75; }
+
+.secret{
+  margin-top: 16px;
+  font-size: var(--textSize);
+  line-height: 1.6;
+  color: rgba(70, 40, 55, 0.82);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.secret.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.secret p{ margin: 12px 0; }
+
+
+
+
+
+
