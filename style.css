@@ -244,9 +244,9 @@ body{
 
   /* высокий, симметричный */
   padding:
-    clamp(110px, 17vh, 160px)
+    clamp(110px, 17vh, 150px)
     clamp(18px, 5vw, 18px)
-    clamp(110px, 17vh, 160px);
+    clamp(110px, 17vh, 150px);
 
   border-radius: 28px;
 
