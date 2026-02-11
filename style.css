@@ -742,6 +742,41 @@ body.modal-open{
   position: fixed;
   width: 100%;
 }
+/* ===== ПУЛЬСАЦИЯ "ЛЮБОВЬ" ===== */
+.bg-word{
+  animation: lovePulse 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* круг/свечение тоже можно чуть "дышать" */
+.bg-word::before{
+  animation: glowPulse 3.2s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+}
+
+@keyframes lovePulse{
+  0%, 100%{
+    transform: scale(1);
+    opacity: 0.94;
+  }
+  50%{
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse{
+  0%, 100%{
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(4px);
+  }
+  50%{
+    transform: scale(1.06);
+    opacity: 0.95;
+    filter: blur(6px);
+  }
+}
 
 
 
