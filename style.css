@@ -701,37 +701,8 @@ body.modal-open{
 /* Делаем "небольшое напоминание" белым */
 .heart-line.small,
 .heart-line.big{
- color: rgba(255, 250, 252, 0.97);
-
+  color: rgba(255, 255, 255, 0.96);
   text-shadow: 0 6px 18px rgba(150, 60, 95, 0.28);
-}
-/* ===== КОНТРАСТ ТЕКСТА В СЕРДЦЕ ===== */
-.heart-line.small,
-.heart-line.big{
-  color: #ffffff;
-
-  /* двойная тень — отлично читается на айфоне */
-  text-shadow:
-    0 4px 12px rgba(120, 40, 70, 0.38),
-    0 1px 2px rgba(120, 40, 70, 0.55);
-}
-
-/* Доп. усиление ТОЛЬКО для iPhone/Safari */
-@supports (-webkit-touch-callout: none) {
-  .heart-line.small{
-    font-weight: 600;
-    letter-spacing: 0.16em;
-  }
-
-  .heart-line.big{
-    font-weight: 700;
-    letter-spacing: 0.04em;
-
-    /* ещё чуть сильнее тень */
-    text-shadow:
-      0 5px 14px rgba(120, 40, 70, 0.46),
-      0 2px 3px rgba(120, 40, 70, 0.65);
-  }
 }
 /* ===== ФОРС: розовый цвет для "твои мысли" и "меню" ===== */
 .top-menu .thoughts-btn{
@@ -746,6 +717,15 @@ body.modal-open{
   background: rgba(200, 60, 110, 0.95) !important;
 }
 
+/* розовый фон кнопки меню */
+.top-menu .burger-btn{
+  background: rgba(255, 150, 185, 0.32) !important;
+  border: 1px solid rgba(255, 135, 170, 0.45) !important;
+}
+
+.top-menu .burger-btn:hover{
+  background: rgba(255, 150, 185, 0.44) !important;
+}
 /* УБИРАЕМ РОЗОВУЮ РАМКУ ВОКРУГ КНОПКИ МЕНЮ */
 .top-menu .burger-btn{
   border: none !important;
@@ -765,14 +745,9 @@ body.modal-open{
 .top-menu .burger-btn:hover{
   background: rgba(255,150,185,0.18) !important;
 }
-/* ===== РОЗОВЫЙ ЦВЕТ ДЛЯ ПУНКТОВ МЕНЮ ===== */
-.menu-dropdown .menu-item{
-  color: rgba(200, 60, 110, 0.95) !important;
+/* Делаем "небольшое напоминание" таким же цветом, как счётчик */
+.heart-line.small,
+.heart-line.big{
+  color: rgba(70, 40, 55, 0.80);
+  text-shadow: none;       /* убираем белые свечения, если оставались */
 }
-
-/* при наведении — чуть насыщеннее */
-.menu-dropdown .menu-item:hover{
-  color: rgba(185, 35, 95, 1) !important;
-  background: rgba(255, 150, 185, 0.18) !important;
-}
-
