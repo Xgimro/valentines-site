@@ -736,12 +736,13 @@ body{
   font-family: "Rubik Mono One", sans-serif;
   margin-bottom: 12px;
 }
-.thoughts-modal[hidden] { display: none !important; }
+.thoughts-modal[hidden]{ display:none !important; }
 
 body.modal-open{
   position: fixed;
   width: 100%;
 }
+
 /* ===== ПУЛЬСАЦИЯ "ЛЮБОВЬ" ===== */
 .bg-word{
   animation: lovePulse 3.2s ease-in-out infinite;
