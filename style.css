@@ -44,6 +44,12 @@ body{
 
   user-select: none;
   pointer-events: none;
+
+  /* пульсация (усилено для iPhone) */
+  animation: lovePulse 2.2s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* розовый круг позади "любовь" */
@@ -63,9 +69,41 @@ body{
   );
 
   filter: blur(4px);
+
+  /* "дыхание" свечения */
+  animation: glowPulse 2.2s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
-/* подсказка */
+@keyframes lovePulse{
+  0%, 100%{
+    transform: translateZ(0) scale(1);
+    opacity: 0.88;
+    filter: blur(2.2px);
+  }
+  50%{
+    transform: translateZ(0) scale(1.07);
+    opacity: 1;
+    filter: blur(3.8px);
+  }
+}
+
+@keyframes glowPulse{
+  0%, 100%{
+    transform: translateZ(0) scale(1);
+    opacity: 0.92;
+    filter: blur(4px);
+  }
+  50%{
+    transform: translateZ(0) scale(1.10);
+    opacity: 1;
+    filter: blur(7px);
+  }
+}
+
+/* подсказка "пролистай вниз" */
 .hint{
   position: absolute;
   bottom: max(18px, env(safe-area-inset-bottom));
@@ -125,17 +163,15 @@ body{
   opacity: 0;
   filter: blur(14px);
   transform: translateY(0);
-  will-change: opacity, filter;
-  transition: opacity 220ms linear, filter 220ms linear;
+  will-change: opacity, filter, transform;
+  transition: opacity 220ms linear, filter 220ms linear, transform 220ms linear;
 }
 
-/* сердце-контейнер (СДЕЛАЛА ЧУТЬ МЕНЬШЕ) */
+/* сердце-контейнер */
 .heart-shape{
   position: relative;
-
   width: clamp(260px, 64vw, 640px);
   height: clamp(240px, 58vw, 580px);
-
   display: grid;
   place-items: center;
 }
@@ -147,7 +183,6 @@ body{
   position: absolute;
   inset: 0;
 
-  /* форма сердца (SVG mask — без ломаных краёв) */
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Cpath d='M50 86 C20 68 6 52 6 34 C6 18 18 8 32 8 C42 8 47 14 50 18 C53 14 58 8 68 8 C82 8 94 18 94 34 C94 52 80 68 50 86 Z' fill='black'/%3E%3C/svg%3E");
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -159,7 +194,7 @@ body{
   mask-size: 100% 100%;
 }
 
-/* ВНУТРЕННЕЕ СЕРДЦЕ (форма читается) */
+/* внутреннее сердце */
 .heart-shape::before{
   inset: -6%;
   background: radial-gradient(circle at 50% 42%,
@@ -168,13 +203,12 @@ body{
     rgba(255,175,205,0.42) 62%,
     rgba(255,205,225,0.00) 86%
   );
-
   filter: blur(18px);
   transform: scale(1.08);
   opacity: 0.98;
 }
 
-/* ВНЕШНИЙ ОРЕОЛ (делает край максимально мягким) */
+/* внешний ореол */
 .heart-shape::after{
   inset: -18%;
   background: radial-gradient(circle at 50% 44%,
@@ -182,7 +216,6 @@ body{
     rgba(255,175,205,0.26) 48%,
     rgba(255,205,225,0.00) 80%
   );
-
   filter: blur(46px);
   transform: scale(1.22);
   opacity: 0.90;
@@ -192,13 +225,10 @@ body{
 .heart-inner{
   position: relative;
   z-index: 2;
-
   display: grid;
   gap: 10px;
   place-items: center;
   text-align: center;
-
-  transform: translateY(0);
 }
 
 .heart-line.small{
@@ -239,10 +269,8 @@ body{
   gap: 14px;
   text-align: center;
 
-  /* одинаковые боковые поля */
   width: min(88vw, 640px);
 
-  /* высокий, симметричный */
   padding:
     clamp(110px, 17vh, 150px)
     clamp(18px, 5vw, 18px)
@@ -250,7 +278,6 @@ body{
 
   border-radius: 28px;
 
-  /* ТЕМНЕЕ И ТЕПЛЕЕ */
   background: rgba(255, 140, 175, 0.34);
   border: 1px solid rgba(255, 135, 170, 0.44);
 
@@ -261,7 +288,6 @@ body{
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-
 
 .we-together{
   color: rgba(70, 40, 55, 0.70);
@@ -338,12 +364,6 @@ body{
   line-height: 1.5;
 }
 
-.hint3{
-  color: rgba(70, 40, 55, 0.55);
-  font-size: clamp(14px, 2.6vw, 16px);
-  letter-spacing: 0.06em;
-}
-
 /* ===== 4 СЛАЙД — КАРТОЧКА ===== */
 .content{
   min-height: 100svh;
@@ -356,13 +376,10 @@ body{
 .container{
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(8px);
-
   padding: var(--cardPadY) var(--cardPadX);
   width: var(--cardW);
-
   border-radius: clamp(16px, 3vw, 22px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-
   text-align: center;
 }
 
@@ -378,7 +395,6 @@ body{
   transform: translateY(18px);
   transition: opacity 700ms ease, transform 700ms ease;
 }
-
 .reveal.show{
   opacity: 1;
   transform: translateY(0);
@@ -396,7 +412,6 @@ body{
   border-bottom: 1px dashed rgba(70,40,55,.25);
   transition: opacity .2s;
 }
-
 .more-btn:hover{ opacity: .75; }
 
 .secret{
@@ -404,27 +419,20 @@ body{
   font-size: var(--textSize);
   line-height: 1.6;
   color: rgba(70, 40, 55, 0.82);
-
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 400ms ease, transform 400ms ease;
 }
-
 .secret.show{
   opacity: 1;
   transform: translateY(0);
 }
-
 .secret p{ margin: 12px 0; }
 
-/* ===== ВЕРХНИЙ БЛОК ПОД МЕНЮ ===== */
+/* ===== ШАПКА МЕНЮ ===== */
 .top-menu{
   position: absolute;
-
-  /* отступ сверху */
   top: 12px;
-
-  /* растягиваем по ширине, но с воздухом по бокам */
   left: 12px;
   right: 12px;
 
@@ -434,16 +442,10 @@ body{
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  /* ВСЕ края закруглены */
   border-radius: 18px;
-
   border: 1px solid rgba(255, 150, 185, 0.34);
 
-  /* ТЕНЬ ОТ ШАПКИ */
-  box-shadow:
-    0 12px 28px rgba(150, 60, 95, 0.18),
-    0 4px 10px rgba(150, 60, 95, 0.10),
-    inset 0 0 0 1px rgba(255,255,255,0.42);
+  box-shadow: 0 14px 32px rgba(150,60,95,.22);
 
   display: flex;
   align-items: center;
@@ -452,40 +454,7 @@ body{
   z-index: 10;
 }
 
-/* ===== ВЕРХНИЙ БЛОК ПОД МЕНЮ ===== */
-.top-menu{
-  position: absolute;
-
-  /* отступ сверху */
-  top: 12px;
-
-  /* растягиваем по ширине, но с воздухом по бокам */
-  left: 12px;
-  right: 12px;
-
-  height: 56px;
-
-  background: rgba(255, 255, 255, 0.70);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  /* ВСЕ края закруглены */
-  border-radius: 18px;
-
-  border: 1px solid rgba(255, 150, 185, 0.34);
-
-  /* ТЕНЬ ОТ ШАПКИ */
- box-shadow: 0 14px 32px rgba(150,60,95,.22);
-
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 10;
-}
-
-/* кнопка в шапке */
+/* кнопка "твои мысли" */
 .thoughts-btn{
   position: absolute;
   left: 14px;
@@ -504,102 +473,9 @@ body{
   border-radius: 10px;
   transition: background .2s;
 }
+.thoughts-btn:hover{ background: rgba(255, 150, 185, 0.18); }
 
-.thoughts-btn:hover{
-  background: rgba(255, 150, 185, 0.18);
-}
-
-/* затемнение фона */
-.thoughts-modal{
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,.28);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 200;
-}
-
-/* ВАЖНО — ограничение размера */
-.thoughts-window{
-  width: min(86vw, 420px);
-  max-height: 76vh;
-
-  background: rgba(255,255,255,.96);
-
-  border-radius: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.22);
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-
-  /* чтобы не растягивалось на весь экран */
-  margin: 0 auto;
-}
-/* шапка окна */
-.thoughts-header{
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  font-size: 14px;
-  color: rgba(70,40,55,.82);
-
-  border-bottom: 1px solid rgba(70,40,55,.1);
-}
-
-.close-btn{
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  line-height: 1;
-  color: rgba(70,40,55,.7);
-}
-
-/* поле ввода */
-.thoughts-area{
-  width: 100%;
-  min-height: 180px;
-
-  border: none;
-  outline: none;
-  resize: none;
-
-  padding: 14px 16px;
-
-  font-family: Georgia, serif;
-  font-size: 15px;
-  line-height: 1.5;
-
-  background: transparent;
-  color: rgba(40,25,35,.9);
-}
-
-.thoughts-footer{
-  padding: 10px 16px;
-  text-align: right;
-  font-size: 12px;
-  color: rgba(70,40,55,.6);
-}
-.thoughts-modal[hidden] { display: none !important; }
-.saved-label{
-  opacity: 0;
-  transition: .3s;
-}
-
-.saved-label.show{
-  opacity: 1;
-}
-
-/* ===== КНОПКА БУРГЕР-МЕНЮ ===== */
-
+/* бургер-меню */
 .burger-btn{
   position: absolute;
   right: 14px;
@@ -617,38 +493,30 @@ body{
 
   transition: background .2s;
 }
+.burger-btn:hover{ background: rgba(255,150,185,.18); }
 
-.burger-btn:hover{
-  background: rgba(255,150,185,.18);
-}
-
-/* три полоски */
 .burger-icon{
   display: grid;
   gap: 4px;
 }
-
 .burger-icon span{
   display: block;
   width: 18px;
   height: 2px;
-
   background: rgba(70,40,55,.82);
   border-radius: 2px;
 }
-
-/* подпись "меню" */
 .burger-label{
   font-family: "Rubik Mono One", sans-serif;
   font-size: 12px;
   letter-spacing: .06em;
-
   color: rgba(70,40,55,.82);
 }
+
 /* ===== ВЫПАДАЮЩЕЕ МЕНЮ ===== */
 .menu-dropdown{
   position: absolute;
-  top: 76px;          /* ниже шапки */
+  top: 76px;
   right: 12px;
 
   width: min(72vw, 260px);
@@ -662,13 +530,9 @@ body{
   border-radius: 18px;
 
   box-shadow: 0 18px 40px rgba(150,60,95,0.18);
-
   z-index: 50;
 }
-
-.menu-dropdown[hidden]{
-  display: none !important;
-}
+.menu-dropdown[hidden]{ display: none !important; }
 
 .menu-item{
   width: 100%;
@@ -690,124 +554,182 @@ body{
   text-decoration: none;
   display: block;
 
-  transition:
-    background .22s ease,
-    transform .18s ease,
-    color .18s ease;
+  transition: background .22s ease, transform .18s ease, color .18s ease;
 }
-
-/* ✨ сам эффект наведения */
 .menu-item:hover{
   background: rgba(255,150,185,0.18);
   transform: translateX(4px);
   color: rgba(70,40,55,0.95);
 }
 
+/* ===== МОДАЛКА "ТВОИ МЫСЛИ" ===== */
+.thoughts-modal{
+  position: fixed;
+  inset: 0;
 
-.menu-item:hover{
-  background: rgba(255,150,185,0.18);
+  background: rgba(0,0,0,.28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 200;
 }
-/* ===== СТРАНИЦА СОНЯ И МАТВЕЙ ===== */
+.thoughts-modal[hidden]{ display: none !important; }
 
+.thoughts-window{
+  width: min(86vw, 420px);
+  max-height: 76vh;
+
+  background: rgba(255,255,255,.96);
+
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.22);
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  margin: 0 auto;
+}
+
+.thoughts-header{
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(70,40,55,.1);
+}
+
+/* ✅ ВОТ ТУТ: ШРИФТ НАД ПОЛЕМ ВВОДА */
+.thoughts-header span{
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(70,40,55,.82);
+}
+
+.close-btn{
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  color: rgba(70,40,55,.7);
+}
+
+/* поле ввода */
+#thoughtsArea,
+.thoughts-area{
+  width: 100%;
+  min-height: 180px;
+
+  border: none;
+  outline: none;
+  resize: none;
+
+  padding: 14px 16px;
+
+  font-family: "Montserrat Alternates", sans-serif; /* ✅ второй вариант */
+  font-size: 16px;
+  line-height: 1.6;
+
+  background: transparent;
+  color: rgba(40,25,35,.92);
+}
+
+.thoughts-footer{
+  padding: 10px 16px;
+  text-align: right;
+  font-size: 12px;
+  color: rgba(70,40,55,.6);
+}
+
+.saved-label{
+  opacity: 0;
+  transition: .3s;
+}
+.saved-label.show{ opacity: 1; }
+
+/* фикс прыжка при модалке */
+body.modal-open{
+  position: fixed;
+  width: 100%;
+}
+
+/* ===== СТРАНИЦЫ (sonya / ksyusha) ===== */
 .page-clean{
   min-height: 100svh;
   background: #ffffff;
   padding: 20px;
 }
-
-.back-header{
-  padding: 10px 0 20px;
-}
-
+.back-header{ padding: 10px 0 20px; }
 .back-link{
   text-decoration: none;
   font-family: "Rubik Mono One", sans-serif;
   font-size: 12px;
   color: rgba(70,40,55,.8);
 }
-
 .page-content{
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
 }
-
 .page-content h1{
   font-family: "Rubik Mono One", sans-serif;
   margin-bottom: 12px;
 }
-.thoughts-modal[hidden]{ display:none !important; }
 
-body.modal-open{
-  position: fixed;
-  width: 100%;
-}
-
-/* ===== ПУЛЬСАЦИЯ "ЛЮБОВЬ" (усилено для iPhone Safari) ===== */
-.bg-word{
-  animation: lovePulse 2.2s ease-in-out infinite;
-  will-change: transform, opacity, filter;
-  transform: translateZ(0);           /* форсим GPU */
-  -webkit-transform: translateZ(0);
-}
-
-@keyframes lovePulse{
-  0%, 100%{
-    transform: translateZ(0) scale(1);
-    opacity: 0.88;
-    filter: blur(2.2px);
-  }
-  50%{
-    transform: translateZ(0) scale(1.07);
-    opacity: 1;
-    filter: blur(3.8px);
-  }
-}
-
-/* чуть "дышит" и свечение-круг */
-.bg-word::before{
-  animation: glowPulse 2.2s ease-in-out infinite;
-  will-change: transform, opacity, filter;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-@keyframes glowPulse{
-  0%, 100%{
-    transform: translateZ(0) scale(1);
-    opacity: 0.92;
-    filter: blur(4px);
-  }
-  50%{
-    transform: translateZ(0) scale(1.10);
-    opacity: 1;
-    filter: blur(7px);
-  }
-}
-/* ===== FIX iPhone: убираем "залипание" из-за sticky ===== */
+/* ===== FIX iPhone: убираем залипание sticky ===== */
 @supports (-webkit-touch-callout: none) {
-  .heart-screen{
-    height: 100svh;         /* вместо длинного 120vh */
-  }
+  .heart-screen{ height: 100svh; }
 
   .heart-sticky{
-    position: relative;     /* отключаем sticky на iOS */
+    position: relative;
     height: auto;
     display: grid;
     place-items: center;
   }
 
-  /* чуть легче для Safari (меньше лагов) */
+  /* чуть легче для Safari */
   .heart-shape::before{ filter: blur(14px); }
   .heart-shape::after{ filter: blur(36px); }
 }
+/* Делаем "небольшое напоминание" белым */
+.heart-line.small,
+.heart-line.big{
+ color: rgba(255, 250, 252, 0.97);
 
+  text-shadow: 0 6px 18px rgba(150, 60, 95, 0.28);
+}
+/* ===== КОНТРАСТ ТЕКСТА В СЕРДЦЕ ===== */
+.heart-line.small,
+.heart-line.big{
+  color: #ffffff;
 
+  /* двойная тень — отлично читается на айфоне */
+  text-shadow:
+    0 4px 12px rgba(120, 40, 70, 0.38),
+    0 1px 2px rgba(120, 40, 70, 0.55);
+}
 
+/* Доп. усиление ТОЛЬКО для iPhone/Safari */
+@supports (-webkit-touch-callout: none) {
+  .heart-line.small{
+    font-weight: 600;
+    letter-spacing: 0.16em;
+  }
 
+  .heart-line.big{
+    font-weight: 700;
+    letter-spacing: 0.04em;
 
-
-
-
-
-
+    /* ещё чуть сильнее тень */
+    text-shadow:
+      0 5px 14px rgba(120, 40, 70, 0.46),
+      0 2px 3px rgba(120, 40, 70, 0.65);
+  }
+}
