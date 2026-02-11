@@ -417,6 +417,325 @@ body{
 
 .secret p{ margin: 12px 0; }
 
+/* ===== ВЕРХНИЙ БЛОК ПОД МЕНЮ ===== */
+.top-menu{
+  position: absolute;
+
+  /* отступ сверху */
+  top: 12px;
+
+  /* растягиваем по ширине, но с воздухом по бокам */
+  left: 12px;
+  right: 12px;
+
+  height: 56px;
+
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* ВСЕ края закруглены */
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 150, 185, 0.34);
+
+  /* ТЕНЬ ОТ ШАПКИ */
+  box-shadow:
+    0 12px 28px rgba(150, 60, 95, 0.18),
+    0 4px 10px rgba(150, 60, 95, 0.10),
+    inset 0 0 0 1px rgba(255,255,255,0.42);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+}
+
+/* ===== ВЕРХНИЙ БЛОК ПОД МЕНЮ ===== */
+.top-menu{
+  position: absolute;
+
+  /* отступ сверху */
+  top: 12px;
+
+  /* растягиваем по ширине, но с воздухом по бокам */
+  left: 12px;
+  right: 12px;
+
+  height: 56px;
+
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* ВСЕ края закруглены */
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 150, 185, 0.34);
+
+  /* ТЕНЬ ОТ ШАПКИ */
+ box-shadow: 0 14px 32px rgba(150,60,95,.22);
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+}
+
+/* кнопка в шапке */
+.thoughts-btn{
+  position: absolute;
+  left: 14px;
+
+  background: none;
+  border: none;
+
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+
+  color: rgba(70, 40, 55, 0.82);
+  cursor: pointer;
+
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: background .2s;
+}
+
+.thoughts-btn:hover{
+  background: rgba(255, 150, 185, 0.18);
+}
+
+/* затемнение фона */
+.thoughts-modal{
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,.28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 200;
+}
+
+/* ВАЖНО — ограничение размера */
+.thoughts-window{
+  width: min(86vw, 420px);
+  max-height: 76vh;
+
+  background: rgba(255,255,255,.96);
+
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.22);
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  /* чтобы не растягивалось на весь экран */
+  margin: 0 auto;
+}
+/* шапка окна */
+.thoughts-header{
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 14px;
+  color: rgba(70,40,55,.82);
+
+  border-bottom: 1px solid rgba(70,40,55,.1);
+}
+
+.close-btn{
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  color: rgba(70,40,55,.7);
+}
+
+/* поле ввода */
+.thoughts-area{
+  width: 100%;
+  min-height: 180px;
+
+  border: none;
+  outline: none;
+  resize: none;
+
+  padding: 14px 16px;
+
+  font-family: Georgia, serif;
+  font-size: 15px;
+  line-height: 1.5;
+
+  background: transparent;
+  color: rgba(40,25,35,.9);
+}
+
+.thoughts-footer{
+  padding: 10px 16px;
+  text-align: right;
+  font-size: 12px;
+  color: rgba(70,40,55,.6);
+}
+.thoughts-modal[hidden] { display: none !important; }
+.saved-label{
+  opacity: 0;
+  transition: .3s;
+}
+
+.saved-label.show{
+  opacity: 1;
+}
+
+/* ===== КНОПКА БУРГЕР-МЕНЮ ===== */
+
+.burger-btn{
+  position: absolute;
+  right: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+
+  transition: background .2s;
+}
+
+.burger-btn:hover{
+  background: rgba(255,150,185,.18);
+}
+
+/* три полоски */
+.burger-icon{
+  display: grid;
+  gap: 4px;
+}
+
+.burger-icon span{
+  display: block;
+  width: 18px;
+  height: 2px;
+
+  background: rgba(70,40,55,.82);
+  border-radius: 2px;
+}
+
+/* подпись "меню" */
+.burger-label{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  letter-spacing: .06em;
+
+  color: rgba(70,40,55,.82);
+}
+/* ===== ВЫПАДАЮЩЕЕ МЕНЮ ===== */
+.menu-dropdown{
+  position: absolute;
+  top: 76px;          /* ниже шапки */
+  right: 12px;
+
+  width: min(72vw, 260px);
+  padding: 10px;
+
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,150,185,0.32);
+  border-radius: 18px;
+
+  box-shadow: 0 18px 40px rgba(150,60,95,0.18);
+
+  z-index: 50;
+}
+
+.menu-dropdown[hidden]{
+  display: none !important;
+}
+
+.menu-item{
+  width: 100%;
+  text-align: left;
+
+  background: transparent;
+  border: none;
+
+  padding: 12px 12px;
+  border-radius: 14px;
+
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+
+  color: rgba(70,40,55,0.82);
+  cursor: pointer;
+
+  text-decoration: none;
+  display: block;
+
+  transition:
+    background .22s ease,
+    transform .18s ease,
+    color .18s ease;
+}
+
+/* ✨ сам эффект наведения */
+.menu-item:hover{
+  background: rgba(255,150,185,0.18);
+  transform: translateX(4px);
+  color: rgba(70,40,55,0.95);
+}
+
+
+.menu-item:hover{
+  background: rgba(255,150,185,0.18);
+}
+/* ===== СТРАНИЦА СОНЯ И МАТВЕЙ ===== */
+
+.page-clean{
+  min-height: 100svh;
+  background: #ffffff;
+  padding: 20px;
+}
+
+.back-header{
+  padding: 10px 0 20px;
+}
+
+.back-link{
+  text-decoration: none;
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  color: rgba(70,40,55,.8);
+}
+
+.page-content{
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-content h1{
+  font-family: "Rubik Mono One", sans-serif;
+  margin-bottom: 12px;
+}
 
 
 
