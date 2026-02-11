@@ -1,11 +1,5 @@
 // ===============================
-// 1) НАСТРОЙКА: ДАТА НАЧАЛА ОТНОШЕНИЙ
-// ===============================
-// Формат: "YYYY-MM-DD" (год-месяц-день)
-const RELATIONSHIP_START = "2026-02-05";
-
-// ===============================
-// ВСПОМОГАТЕЛЬНОЕ
+// 0) ВСПОМОГАТЕЛЬНОЕ
 // ===============================
 function pad2(n) {
   return String(n).padStart(2, "0");
@@ -16,6 +10,12 @@ function clamp(v, a, b) {
 }
 
 // ===============================
+// 1) НАСТРОЙКА: ДАТА НАЧАЛА ОТНОШЕНИЙ
+// ===============================
+// Формат: "YYYY-MM-DD" (год-месяц-день)
+const RELATIONSHIP_START = "2026-02-05"; // <-- поменяй на вашу дату
+
+// ===============================
 // 2) СЧЁТЧИК (дни/часы/минуты)
 // ===============================
 function updateCounter() {
@@ -23,13 +23,14 @@ function updateCounter() {
   const hoursEl = document.getElementById("relHours");
   const minsEl = document.getElementById("relMins");
 
-  // если на странице нет счётчика — просто выходим
   if (!daysEl || !hoursEl || !minsEl) return;
 
   const start = new Date(RELATIONSHIP_START + "T00:00:00");
   const now = new Date();
 
   const diff = now.getTime() - start.getTime();
+
+  // если дата в будущем — просто нули
   if (diff < 0) {
     daysEl.textContent = "0";
     hoursEl.textContent = "00";
@@ -50,12 +51,11 @@ function updateCounter() {
   minsEl.textContent = pad2(mins);
 }
 
-// сразу обновим и дальше раз в минуту
 updateCounter();
 setInterval(updateCounter, 60000);
 
 // ===============================
-// 3) ПЛАВНОЕ ПОЯВЛЕНИЕ СЧЁТЧИКА ПРИ СКРОЛЛЕ
+// 3) ПОЯВЛЕНИЕ СЧЁТЧИКА ПРИ СКРОЛЛЕ
 // ===============================
 function showCounterOnScroll() {
   const counterScene = document.getElementById("counterScene");
@@ -72,7 +72,36 @@ showCounterOnScroll();
 window.addEventListener("scroll", showCounterOnScroll, { passive: true });
 
 // ===============================
-// 4) КНОПКА "ПРОЧИТАТЬ БОЛЬШЕ"
+// 4) "ПРОЛИСТАЙ ВНИЗ" ПЛАВНО ИСЧЕЗАЕТ НА 1 СЛАЙДЕ
+// ===============================
+(function () {
+  const hint = document.getElementById("hintDown");
+  const hero = document.getElementById("hero");
+  if (!hint || !hero) return;
+
+  function updateHint() {
+    const r = hero.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    const progress = clamp((-r.top) / (vh * 0.35), 0, 1);
+
+    const opacity = 1 - progress;
+    const blur = progress * 10;
+    const y = progress * -10;
+
+    hint.style.opacity = String(opacity);
+    hint.style.filter = `blur(${blur}px)`;
+    hint.style.transform = `translate(-50%, ${y}px)`;
+    hint.style.pointerEvents = opacity < 0.15 ? "none" : "auto";
+  }
+
+  updateHint();
+  window.addEventListener("scroll", updateHint, { passive: true });
+  window.addEventListener("resize", updateHint);
+})();
+
+// ===============================
+// 5) "ПРОЧИТАТЬ БОЛЬШЕ"
 // ===============================
 (function () {
   const btn = document.getElementById("moreBtn");
@@ -85,9 +114,7 @@ window.addEventListener("scroll", showCounterOnScroll, { passive: true });
 
     if (opened) {
       secret.classList.remove("show");
-      setTimeout(() => {
-        secret.hidden = true;
-      }, 300);
+      setTimeout(() => (secret.hidden = true), 300);
       btn.textContent = "прочитать больше +";
     } else {
       secret.hidden = false;
@@ -98,36 +125,47 @@ window.addEventListener("scroll", showCounterOnScroll, { passive: true });
 })();
 
 // ===============================
-// 5) СЕРДЦЕ (2 слайд): плавное появление
+// 6) СЕРДЦЕ: ПОЯВЛЯЕТСЯ И ОЧЕНЬ СИЛЬНО ИСЧЕЗАЕТ ПРИ СКРОЛЛЕ ВНИЗ
 // ===============================
-function updateHeart() {
-  const heartScene = document.getElementById("heartScene");
-  const heartBlock = document.getElementById("heartBlock");
-  if (!heartScene || !heartBlock) return;
+(function () {
+  const heartWrap = document.getElementById("heartBlock"); // .heart-wrap
+  const heartScreen = document.getElementById("heartScene"); // section
+  if (!heartWrap || !heartScreen) return;
 
-  const r = heartScene.getBoundingClientRect();
-  const vh = window.innerHeight || document.documentElement.clientHeight;
+  function updateHeart() {
+    const rect = heartScreen.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
 
-  // progressIn: 0->1 когда подходим к секции (сердце появляется)
-  const progressIn = clamp((vh * 0.95 - r.top) / (vh * 0.95 - vh * 0.35), 0, 1);
+    // 0..1: насколько мы "вошли" в секцию (появление)
+    const inT = (vh * 0.95 - rect.top) / (vh * 0.95 - vh * 0.35);
+    const progressIn = clamp(inT, 0, 1);
 
-  // progressOut: 0->1 когда уходим вниз (сердце исчезает)
-  const progressOut = clamp((r.bottom - vh * 0.15) / (vh * 0.65), 0, 1);
+    // 0..1: насколько мы "уходим вниз" из секции (исчезание)
+    // чем меньше bottom, тем сильнее исчезает
+    const outT = (rect.bottom - vh * 0.10) / (vh * 0.75);
+    const progressOut = clamp(outT, 0, 1);
 
-  // итоговая видимость: появление * удержание * исчезание
-  const visible = progressIn * progressOut;
+    // итоговая видимость: вошли * не ушли
+    const visible = progressIn * progressOut;
 
-  heartBlock.style.opacity = String(visible);
-  heartBlock.style.filter = `blur(${(1 - visible) * 14}px)`;
-  heartBlock.style.transform = `translateY(${(1 - visible) * 10}px)`;
-}
+    // усиленные эффекты исчезания
+    const opacity = clamp(visible, 0, 1);
+    const blur = (1 - visible) * 28;          // сильнее размытие
+    const scale = 1 - (1 - visible) * 0.10;   // чуть уменьшается
+    const y = (1 - visible) * 18;             // немного уходит вниз
 
-updateHeart();
-window.addEventListener("scroll", updateHeart, { passive: true });
-window.addEventListener("resize", updateHeart);
+    heartWrap.style.opacity = String(opacity);
+    heartWrap.style.filter = `blur(${blur}px)`;
+    heartWrap.style.transform = `translateY(${y}px) scale(${scale})`;
+  }
+
+  updateHeart();
+  window.addEventListener("scroll", updateHeart, { passive: true });
+  window.addEventListener("resize", updateHeart);
+})();
 
 // ===============================
-// 6) БУРГЕР-МЕНЮ (открыть/закрыть)
+// 7) БУРГЕР-МЕНЮ (открыть/закрыть)
 // ===============================
 (function () {
   const burger = document.getElementById("openMenu");
@@ -139,9 +177,7 @@ window.addEventListener("resize", updateHeart);
     dropdown.hidden = !dropdown.hidden;
   });
 
-  dropdown.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
+  dropdown.addEventListener("click", (e) => e.stopPropagation());
 
   document.addEventListener("click", () => {
     dropdown.hidden = true;
@@ -149,7 +185,7 @@ window.addEventListener("resize", updateHeart);
 })();
 
 // ===============================
-// 7) ОКНО "ТВОИ МЫСЛИ" + ФИКС СКРОЛЛА НА iPHONE
+// 8) ОКНО "ТВОИ МЫСЛИ" + ФИКС СКРОЛЛА НА iPHONE
 // ===============================
 (function () {
   const openBtn = document.getElementById("openThoughts");
@@ -164,21 +200,20 @@ window.addEventListener("resize", updateHeart);
 
   function openModal() {
     savedScroll = window.scrollY;
-
     document.body.classList.add("modal-open");
     modal.hidden = false;
 
-    if (area) {
-      area.focus();
-    }
+    if (area) area.focus();
   }
 
   function closeModal() {
     modal.hidden = true;
     document.body.classList.remove("modal-open");
 
-    // вернуть позицию страницы (фикс прыжка)
-    window.scrollTo({ top: savedScroll, behavior: "instant" });
+    window.scrollTo({
+      top: savedScroll,
+      behavior: "instant",
+    });
   }
 
   openBtn.addEventListener("click", openModal);
@@ -189,11 +224,10 @@ window.addEventListener("resize", updateHeart);
     if (e.target === modal) closeModal();
   });
 
-  // загрузка сохранённого текста
+  // загрузка сохранённого текста + автосохранение
   if (area) {
     area.value = localStorage.getItem("thoughts") || "";
 
-    // автосохранение
     area.addEventListener("input", () => {
       localStorage.setItem("thoughts", area.value);
 
@@ -203,36 +237,6 @@ window.addEventListener("resize", updateHeart);
       }
     });
   }
-})();
-// ===== ПЛАВНОЕ ИСЧЕЗНОВЕНИЕ "ПРОЛИСТАЙ ВНИЗ" НА 1 СЛАЙДЕ =====
-(function () {
-  const hint = document.getElementById("hintDown");
-  const hero = document.getElementById("hero");
-  if (!hint || !hero) return;
-
-  function updateHint() {
-    const r = hero.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-
-    // 0..1: насколько "1 слайд" ушёл вверх
-    const progress = Math.max(0, Math.min(1, (-r.top) / (vh * 0.35)));
-
-    // плавно: меньше прозрачность + чуть блюра + лёгкий сдвиг
-    const opacity = 1 - progress;
-    const blur = progress * 10;        // до 10px
-    const y = progress * -10;          // чуть вверх
-
-    hint.style.opacity = String(opacity);
-    hint.style.filter = `blur(${blur}px)`;
-    hint.style.transform = `translate(-50%, ${y}px)`;
-
-    // чтобы не кликабельно когда почти исчезло
-    hint.style.pointerEvents = opacity < 0.15 ? "none" : "auto";
-  }
-
-  updateHint();
-  window.addEventListener("scroll", updateHint, { passive: true });
-  window.addEventListener("resize", updateHint);
 })();
 
 
