@@ -736,6 +736,12 @@ body{
   font-family: "Rubik Mono One", sans-serif;
   margin-bottom: 12px;
 }
+.thoughts-modal[hidden] { display: none !important; }
+
+body.modal-open{
+  position: fixed;
+  width: 100%;
+}
 
 
 
