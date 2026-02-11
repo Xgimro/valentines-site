@@ -733,3 +733,46 @@ body.modal-open{
       0 2px 3px rgba(120, 40, 70, 0.65);
   }
 }
+/* ===== ФОРС: розовый цвет для "твои мысли" и "меню" ===== */
+.top-menu .thoughts-btn{
+  color: rgba(200, 60, 110, 0.95) !important;
+}
+
+.top-menu .burger-label{
+  color: rgba(200, 60, 110, 0.95) !important;
+}
+
+.top-menu .burger-icon span{
+  background: rgba(200, 60, 110, 0.95) !important;
+}
+
+/* УБИРАЕМ РОЗОВУЮ РАМКУ ВОКРУГ КНОПКИ МЕНЮ */
+.top-menu .burger-btn{
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Делаем розовыми ТОЛЬКО элементы внутри */
+.top-menu .burger-label{
+  color: rgba(200, 60, 110, 0.95) !important;
+}
+
+.top-menu .burger-icon span{
+  background: rgba(200, 60, 110, 0.95) !important;
+}
+
+/* лёгкая подсветка при наведении, БЕЗ рамки */
+.top-menu .burger-btn:hover{
+  background: rgba(255,150,185,0.18) !important;
+}
+/* ===== РОЗОВЫЙ ЦВЕТ ДЛЯ ПУНКТОВ МЕНЮ ===== */
+.menu-dropdown .menu-item{
+  color: rgba(200, 60, 110, 0.95) !important;
+}
+
+/* при наведении — чуть насыщеннее */
+.menu-dropdown .menu-item:hover{
+  color: rgba(185, 35, 95, 1) !important;
+  background: rgba(255, 150, 185, 0.18) !important;
+}
+
