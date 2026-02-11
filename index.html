@@ -17,8 +17,58 @@
 
   <!-- 1 СЛАЙД -->
   <section class="hero" id="hero">
-    <div class="bg-word" id="loveWord" aria-hidden="true">любовь</div>
+    <!-- заготовка под меню -->
+<div class="top-menu">
 
+  <!-- слева -->
+  <button class="thoughts-btn" id="openThoughts">
+    твои мысли
+  </button>
+
+  <!-- справа кнопка меню -->
+  <button class="burger-btn" id="openMenu">
+    <span class="burger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+
+    <span class="burger-label">меню</span>
+  </button>
+</div>
+
+<!-- выпадающее меню -->
+ 
+<div class="menu-dropdown" id="menuDropdown" hidden>
+  <a class="menu-item" href="sonya-matvey.html">Соня и Матвей</a>
+  <a class="menu-item" href="ksyusha.html">Ксюша</a>
+</div>
+
+
+<!-- окошко для заметок -->
+<div class="thoughts-modal" id="thoughtsModal" hidden>
+  <div class="thoughts-window">
+
+    <div class="thoughts-header">
+      <span>напиши, что у тебя на сердце</span>
+
+<button class="close-btn" id="closeThoughts" type="button">×</button>
+    </div>
+
+    <textarea
+      class="thoughts-area"
+      id="thoughtsArea"
+      placeholder="расскажи все, о чем думаешь, я тебя поддержу..."
+    ></textarea>
+
+    <div class="thoughts-footer">
+      <span class="saved-label" id="savedLabel">запомнила</span>
+    </div>
+
+  </div>
+</div>
+
+    <div class="bg-word" id="loveWord" aria-hidden="true">любовь</div>
     <div class="hint" id="hintDown">
       <span>пролистай вниз</span><span>↓</span>
     </div>
@@ -61,7 +111,6 @@
       </div>
 
       <div class="after-counter">и каждый из них для меня важен</div>
-      <div class="hint3">листай дальше ↓</div>
     </div>
   </section>
 
