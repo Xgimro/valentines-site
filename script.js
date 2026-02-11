@@ -238,6 +238,24 @@ window.addEventListener("scroll", showCounterOnScroll, { passive: true });
     });
   }
 })();
+// ===== ПОЯВЛЕНИЕ КАРТОЧКИ (4 СЛАЙД) =====
+(function () {
+  const card = document.getElementById("card");
+  if (!card) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          card.classList.add("show");
+        }
+      }
+    },
+    { threshold: 0.25 }
+  );
+
+  io.observe(card);
+})();
 
 
 
