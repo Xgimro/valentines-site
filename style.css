@@ -751,3 +751,85 @@ body.modal-open{
   color: rgba(70, 40, 55, 0.80);
   text-shadow: none;       /* убираем белые свечения, если оставались */
 }
+/* ===== Страница Соня и Матвей ===== */
+
+.friends-container{
+  max-width: 620px;
+  margin: 20px auto 40px;
+
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 22px;
+  padding: 22px 20px;
+
+  box-shadow:
+    0 16px 34px rgba(150,60,95,.12),
+    inset 0 0 0 1px rgba(255,255,255,.45);
+}
+
+.friends-title{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 18px;
+  letter-spacing: .04em;
+
+  color: rgba(70,40,55,.86);
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.friends-text{
+  font-family: Georgia, serif;
+  font-size: 15px;
+  line-height: 1.6;
+
+  color: rgba(70,40,55,.82);
+  white-space: pre-line;   /* чтобы переносы работали как в тексте */
+}
+/* ===== КНОПКА НАЗАД КАК НА СТРАНИЦЕ КСЮША ===== */
+
+.back-header{
+  max-width: 620px;
+  margin: 12px auto 8px;
+  padding: 0 12px;
+}
+
+/* используем ТОТ ЖЕ стиль что у пунктов меню */
+.back-like-ksusha{
+  display: inline-block;
+  text-decoration: none;
+
+  /* 1) тот же шрифт, что в меню */
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+
+  /* 2) ТОТ ЖЕ розовый цвет, что у меню */
+  color: rgba(180,70,110,.88);
+
+  /* 3) ТОТ ЖЕ фон, что у пунктов меню */
+  background: rgba(255,150,185,0.18);
+
+  border: 1px solid rgba(255,150,185,0.32);
+  border-radius: 14px;
+
+  padding: 10px 12px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 8px 20px rgba(150,60,95,.12);
+
+  transition:
+    background .22s ease,
+    transform .18s ease,
+    color .18s ease;
+}
+
+/* ТОЧНО ТАКОЙ ЖЕ hover как у меню */
+.back-like-ksusha:hover{
+  background: rgba(255,150,185,0.28);
+  transform: translateX(-3px);
+  color: rgba(180,70,110,1);
+}
