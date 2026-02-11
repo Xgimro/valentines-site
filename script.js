@@ -108,13 +108,20 @@ function updateHeart() {
   const r = heartScene.getBoundingClientRect();
   const vh = window.innerHeight || document.documentElement.clientHeight;
 
-  // прогресс появления (0..1)
-  const t = (vh * 0.95 - r.top) / (vh * 0.95 - vh * 0.25);
-  const p = clamp(t, 0, 1);
+  // progressIn: 0->1 когда подходим к секции (сердце появляется)
+  const progressIn = clamp((vh * 0.95 - r.top) / (vh * 0.95 - vh * 0.35), 0, 1);
 
-  heartBlock.style.opacity = String(p);
-  heartBlock.style.filter = `blur(${(1 - p) * 14}px)`;
+  // progressOut: 0->1 когда уходим вниз (сердце исчезает)
+  const progressOut = clamp((r.bottom - vh * 0.15) / (vh * 0.65), 0, 1);
+
+  // итоговая видимость: появление * удержание * исчезание
+  const visible = progressIn * progressOut;
+
+  heartBlock.style.opacity = String(visible);
+  heartBlock.style.filter = `blur(${(1 - visible) * 14}px)`;
+  heartBlock.style.transform = `translateY(${(1 - visible) * 10}px)`;
 }
+
 updateHeart();
 window.addEventListener("scroll", updateHeart, { passive: true });
 window.addEventListener("resize", updateHeart);
