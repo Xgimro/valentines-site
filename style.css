@@ -784,6 +784,23 @@ body.modal-open{
     filter: blur(7px);
   }
 }
+/* ===== FIX iPhone: убираем "залипание" из-за sticky ===== */
+@supports (-webkit-touch-callout: none) {
+  .heart-screen{
+    height: 100svh;         /* вместо длинного 120vh */
+  }
+
+  .heart-sticky{
+    position: relative;     /* отключаем sticky на iOS */
+    height: auto;
+    display: grid;
+    place-items: center;
+  }
+
+  /* чуть легче для Safari (меньше лагов) */
+  .heart-shape::before{ filter: blur(14px); }
+  .heart-shape::after{ filter: blur(36px); }
+}
 
 
 
