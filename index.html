@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For You</title>
 
+  <!-- Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Rubik Mono One -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
@@ -17,147 +16,173 @@
 
 <body>
 
-  <!-- 1 СЛАЙД -->
-  <section class="hero" id="hero">
+<!-- ======================================================
+     1 СЛАЙД
+====================================================== -->
+<section class="hero" id="hero">
 
-    <!-- верхнее меню -->
-    <div class="top-menu">
-       <div class="top-menu-inner">
-      <!-- слева -->
-      <button class="thoughts-btn" id="openThoughts" type="button">
-        твои мысли
-      </button>
+  <!-- ШАПКА -->
+  <div class="top-menu">
+    <div class="top-menu-inner">
 
-      <!-- справа -->
-      <button class="burger-btn" id="openMenu" type="button" aria-expanded="false" aria-controls="menuDropdown">
-        <span class="burger-icon" aria-hidden="true">
+      <!-- фильмы -->
+      <a class="films-btn" href="films.html">фильмы</a>
+
+      <!-- меню -->
+      <button class="burger-btn" id="openMenu" type="button" aria-expanded="false">
+        <span class="burger-icon">
           <span></span>
           <span></span>
           <span></span>
         </span>
         <span class="burger-label">меню</span>
       </button>
-       </div>
+
     </div>
+  </div>
 
-    <!-- выпадающее меню -->
-    <nav class="menu-dropdown" id="menuDropdown" hidden>
-      <a class="menu-item" href="sonya-matvey.html">Соня и Матвей</a>
-      <a class="menu-item" href="ksyusha.html">Ксюша</a>
-    </nav>
 
-    <!-- модалка "твои мысли" -->
-    <div class="thoughts-modal" id="thoughtsModal" hidden>
-      <div class="thoughts-window" role="dialog" aria-modal="true" aria-label="место для твоих мыслей">
+  <!-- выпадающее меню -->
+  <div class="menu-dropdown" id="menuDropdown" hidden>
+    <a class="menu-item" href="sonya-matvey.html">Соня и Матвей</a>
+    <a class="menu-item" href="ksyusha.html">Ксюша</a>
+  </div>
 
-        <div class="thoughts-header">
-          <span>место для твоих мыслей</span>
-          <button class="close-btn" id="closeThoughts" type="button" aria-label="Закрыть">×</button>
-        </div>
 
-        <textarea
-          class="thoughts-area"
-          id="thoughtsArea"
-          placeholder="то, что не скажешь вслух..."
-        ></textarea>
+  <!-- слово любовь -->
+  <div class="bg-word" id="loveWord" aria-hidden="true">
+    любовь
+  </div>
 
-        <div class="thoughts-footer">
-          <span class="saved-label" id="savedLabel">запомнила</span>
-        </div>
 
-      </div>
-    </div>
+  <!-- подсказка -->
+  <div class="hint" id="hintDown">
+    <span>пролистай вниз</span>
+    <span>↓</span>
+  </div>
 
-    <div class="bg-word" id="loveWord" aria-hidden="true">любовь</div>
+</section>
 
-    <div class="hint" id="hintDown">
-      <span>пролистай вниз</span><span>↓</span>
-    </div>
-  </section>
 
-  <!-- 2 СЛАЙД — СЕРДЦЕ -->
-  <section class="heart-screen" id="heartScene">
-    <div class="heart-sticky">
-      <div class="heart-wrap" id="heartBlock">
-        <div class="heart-shape">
-          <div class="heart-inner">
-            <div class="heart-line small">небольшое</div>
-            <div class="heart-line big">напоминание</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- 3 СЛАЙД — СЧЁТЧИК -->
-  <section class="counter-screen" id="counterScene">
-    <div class="counter-wrap">
-      <div class="we-together">мы вместе</div>
+<!-- ======================================================
+     2 СЛАЙД — СЕРДЦЕ
+====================================================== -->
+<section class="heart-screen" id="heartScene">
 
-      <div class="counter-board" aria-live="polite">
-        <div class="tile">
-          <div class="tile-num" id="relDays">0</div>
-          <div class="tile-label" id="relDaysWord">дней</div>
-        </div>
+  <div class="heart-sticky">
 
-        <div class="tile">
-          <div class="tile-num" id="relHours">00</div>
-          <div class="tile-label">часов</div>
-        </div>
+    <div class="heart-wrap" id="heartBlock">
 
-        <div class="tile">
-          <div class="tile-num" id="relMins">00</div>
-          <div class="tile-label">минут</div>
+      <div class="heart-shape">
+        <div class="heart-inner">
+          <div class="heart-line small">небольшое</div>
+          <div class="heart-line big">напоминание</div>
         </div>
       </div>
 
-      <div class="after-counter">и каждый из них для меня важен</div>
     </div>
-  </section>
 
-  <!-- 4 СЛАЙД — КАРТОЧКА -->
-  <section class="content" id="contentScene">
-    <div class="container reveal" id="card">
-      <p class="lead">
-        Я довольно часто бываю злой, нетактильной и без настроения,
-        но это никак не влияет на мои чувства к тебе.
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     3 СЛАЙД — СЧЁТЧИК
+====================================================== -->
+<section class="counter-screen" id="counterScene">
+
+  <div class="counter-wrap">
+
+    <div class="we-together">мы вместе</div>
+
+    <div class="counter-board" aria-live="polite">
+
+      <div class="tile">
+        <div class="tile-num" id="relDays">0</div>
+        <div class="tile-label" id="relDaysWord">дней</div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-num" id="relHours">00</div>
+        <div class="tile-label">часов</div>
+      </div>
+
+      <div class="tile">
+        <div class="tile-num" id="relMins">00</div>
+        <div class="tile-label">минут</div>
+      </div>
+
+    </div>
+
+    <div class="after-counter">
+      и каждый из них для меня важен
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     4 СЛАЙД — КАРТОЧКА
+====================================================== -->
+<section class="content" id="contentScene">
+
+  <div class="container reveal" id="card">
+
+    <p class="lead">
+      Я довольно часто бываю злой, нетактильной и без настроения,
+      но это никак не влияет на мои чувства к тебе.
+    </p>
+
+    <button class="more-btn" aria-expanded="false" type="button" id="moreBtn">
+      прочитать больше +
+    </button>
+
+    <div class="secret" hidden id="secret">
+
+      <p>
+        Я сделала этот сайт не для красоты и не «для галочки».
+        Просто иногда ты накручиваешь себя сильнее, чем нужно,
+        а я не всегда умею вовремя подобрать слова.
       </p>
 
-      <button class="more-btn" aria-expanded="false" type="button" id="moreBtn">
-        прочитать больше +
-      </button>
+      <p>
+        Хочу, чтобы у тебя было место,
+        куда можно зайти в любой момент —
+        когда тревожно, когда сомневаешься,
+        когда кажется, что всё как-то не так.
+      </p>
 
-      <div class="secret" hidden id="secret">
-        <p>
-          Я сделала этот сайт не для красоты и не «для галочки».
-          Просто иногда ты накручиваешь себя сильнее, чем нужно,
-          а я не всегда умею вовремя подобрать слова.
-        </p>
+      <p>
+        Зайти, перечитать и вспомнить,
+        что тебя здесь ждут без условий,
+        без «будь удобной» и «будь проще».
+        Просто такой, какая ты есть.
+      </p>
 
-        <p>
-          Хочу, чтобы у тебя было место,
-          куда можно зайти в любой момент —
-          когда тревожно, когда сомневаешься,
-          когда кажется, что всё как-то не так.
-        </p>
+      <p>
+        Если вдруг станет грустно —
+        заходи сюда и не верь плохим мыслям.
+        Они почти всегда врут.
+      </p>
 
-        <p>
-          Зайти, перечитать и вспомнить,
-          что тебя здесь ждут без условий,
-          без «будь удобной» и «будь проще».
-          Просто такой, какая ты есть.
-        </p>
-
-        <p>
-          Если вдруг станет грустно —
-          заходи сюда и не верь плохим мыслям.
-          Они почти всегда врут.
-        </p>
-      </div>
     </div>
-  </section>
 
-  <script src="script.js"></script>
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     SCRIPT
+====================================================== -->
+<script src="script.js"></script>
+
 </body>
 </html>
-
