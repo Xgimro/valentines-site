@@ -833,3 +833,62 @@ body.modal-open{
   transform: translateX(-3px);
   color: rgba(180,70,110,1);
 }
+/* =========================
+   iPhone XR и выше (iOS Safari)
+   фиксы разрывов + убираем залипание sticky
+   ========================= */
+
+/* универсально: правильная высота экрана на мобилках */
+.hero,
+.counter-screen,
+.content{
+  min-height: 100svh;
+}
+
+/* сердце: не делаем 120vh, чтобы не было огромных дыр */
+.heart-screen{
+  height: 100svh;
+}
+
+/* ---------- iOS (XR и выше) ---------- */
+@supports (-webkit-touch-callout: none){
+
+  /* убираем лаги/залипание sticky */
+  .heart-sticky{
+    position: relative;
+    top: auto;
+    height: auto;
+  }
+
+  /* делаем одинаковые “стыки” между блоками */
+  .heart-screen{
+    height: auto;
+    padding: 0 var(--pad);
+    margin: 0;
+  }
+
+  /* сердце по центру и без лишнего воздуха */
+  .heart-wrap{
+    opacity: 1;
+    filter: blur(0);
+    transition: none;
+    margin: 0;
+    padding: 12svh 0 8svh; /* верх/низ — ровные отступы */
+  }
+
+  /* счётчик поднимаем ближе к сердцу */
+  .counter-screen{
+    min-height: auto;
+    padding: 8svh var(--pad) 10svh; /* сверху меньше воздуха */
+    margin: 0;
+  }
+
+  /* уменьшаем внутренние “гигантские” паддинги у блока */
+  .counter-wrap{
+    padding: 64px 18px 72px; /* вместо 110–150px */
+  }
+
+  /* чтобы backdrop-filter не лагал на iOS — облегчаем */
+  .heart-shape::before{ filter: blur(14px); }
+  .heart-shape::after { filter: blur(34px); }
+}
