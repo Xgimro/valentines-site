@@ -220,16 +220,20 @@ color: #a16176;
   font-weight: 500;
 
   text-decoration: none;
-  color: rgba(70, 40, 55, 0.86);
+
+  color:#9a5067;
 
   padding: 10px 12px;
   border-radius: 12px;
+
+  transition: .2s;
 }
+
 
 .menu-item:hover{
-  background: rgba(255,150,185,0.20);
+  background: rgba(154,80,103,0.12);
+  color:#7f3e53;
 }
-
 /* ======================================================
    THOUGHTS MODAL
    ====================================================== */
@@ -875,5 +879,81 @@ color: #a16176;
 }
 .top-menu-inner{
   backdrop-filter: blur(6px);
+}
+/* =========================================
+   HEADER: динамика при скролле
+   ========================================= */
+
+/* стартовое состояние: без blur и почти без тени */
+.top-menu-inner{
+  height: 54px;
+  transition:
+    height .22s ease,
+    box-shadow .22s ease,
+    background-color .22s ease,
+    -webkit-backdrop-filter .22s ease,
+    backdrop-filter .22s ease,
+    border-color .22s ease,
+    transform .22s ease;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: rgba(255,255,255,0.96);
+}
+
+/* при прокрутке: меньше высота + blur + тень */
+.top-menu.is-scrolled .top-menu-inner{
+  height: 46px;
+
+  background: rgba(255,255,255,0.72);
+
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  border-color: rgba(255,150,185,0.18);
+
+  box-shadow:
+    0 10px 26px rgba(255,120,170,0.16),
+    0 3px 10px rgba(0,0,0,0.08);
+}
+/* =========================================
+   HEADER: скрытие при прокрутке вниз
+   ========================================= */
+
+/* базово: шапка видна */
+.top-menu{
+  transition: opacity .22s ease, transform .22s ease, filter .22s ease;
+  will-change: transform, opacity, filter;
+}
+
+/* когда скрываем */
+.top-menu.is-hidden{
+  opacity: 0;
+  transform: translateY(-14px);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* когда прокручено (твой прошлый эффект) */
+.top-menu-inner{
+  transition:
+    height .22s ease,
+    box-shadow .22s ease,
+    background-color .22s ease,
+    -webkit-backdrop-filter .22s ease,
+    backdrop-filter .22s ease,
+    border-color .22s ease,
+    transform .22s ease;
+}
+
+.top-menu.is-scrolled .top-menu-inner{
+  height: 46px;
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-color: rgba(255,150,185,0.18);
+  box-shadow:
+    0 10px 26px rgba(255,120,170,0.16),
+    0 3px 10px rgba(0,0,0,0.08);
 }
 
