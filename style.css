@@ -969,7 +969,6 @@ body.is-scrolling .thoughts-window{
 }
 
 /* (опционально) если всё равно лаги: можно ещё облегчить blur-фильтры на время скролла */
-body.is-scrolling #loveWord,
 body.is-scrolling #hintDown{
   filter: none !important;
 }
