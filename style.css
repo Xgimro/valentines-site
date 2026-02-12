@@ -973,4 +973,45 @@ body.is-scrolling #loveWord,
 body.is-scrolling #hintDown{
   filter: none !important;
 }
+/* =========================================
+   КНОПКА НАЗАД — как кнопка меню
+   ========================================= */
+
+.back-link{
+  /* ТОЧНО такой же шрифт, как у меню */
+  font-family: "Rubik Mono One", sans-serif;
+  font-weight: 400;
+  text-transform: lowercase;
+  letter-spacing: .04em;
+
+  font-size: clamp(12px,2.6vw,14px);
+
+  color:#9a5067;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: rgba(255,255,255,0.96);
+  padding: 10px 16px;
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  border: 1px solid rgba(255,150,185,.25);
+
+  box-shadow:
+    0 8px 24px rgba(255,120,170,.16),
+    0 2px 6px rgba(0,0,0,.06);
+
+  transition: transform .18s ease, color .18s ease;
+}
+
+
+/* hover эффект как у меню */
+.back-link:hover{
+  color:#7f3e53;
+  transform: translateY(-1px);
+}
+
 
