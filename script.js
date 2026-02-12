@@ -347,6 +347,52 @@ function initThoughts() {
 
 
 // ======================================================
+// 9) ШАПКА: is-scrolled + скрытие вниз (blur+fade) / показ вверх
+// ======================================================
+
+function initHeaderScroll() {
+  const header = document.querySelector(".top-menu");
+  if (!header) return;
+
+  const THRESHOLD_SCROLLED = 6;  // когда включать стиль "scrolled"
+  const HIDE_AFTER = 40;         // после скольких px начать прятать
+  const DELTA = 4;               // антидребезг
+
+  let lastY = window.scrollY || 0;
+
+  const update = () => {
+    const y = window.scrollY || 0;
+
+    // если открыто меню или модалка — шапку не прячем
+    const menuOpen = DOM.menuDropdown && !DOM.menuDropdown.hidden;
+    const thoughtsOpen = DOM.thoughtsModal && !DOM.thoughtsModal.hidden;
+    if (menuOpen || thoughtsOpen) {
+      header.classList.remove("is-hidden");
+      header.classList.toggle("is-scrolled", y > THRESHOLD_SCROLLED);
+      lastY = y;
+      return;
+    }
+
+    // стиль "scrolled"
+    header.classList.toggle("is-scrolled", y > THRESHOLD_SCROLLED);
+
+    // направление
+    const goingDown = y > lastY + DELTA;
+    const goingUp = y < lastY - DELTA;
+
+    if (goingDown && y > HIDE_AFTER) header.classList.add("is-hidden");
+    if (goingUp) header.classList.remove("is-hidden");
+    if (y <= 2) header.classList.remove("is-hidden");
+
+    lastY = y;
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+}
+
+
+// ======================================================
 // INIT
 // ======================================================
 
@@ -357,6 +403,8 @@ function init() {
 
   initMenu();
   initThoughts();
+
+  initHeaderScroll();
 
   window.addEventListener("scroll", requestTick, { passive: true });
   window.addEventListener("resize", requestTick);
