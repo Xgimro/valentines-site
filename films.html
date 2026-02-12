@@ -204,7 +204,7 @@
     const modal = document.getElementById("filmModal");
     const modalTitle = document.getElementById("modalTitle");
     const modalDesc = document.getElementById("modalDesc");
-    const modalClose = document.getElementById("modalClose");
+   
 
     function openModal(title, desc){
       modalTitle.textContent = title || "";
@@ -224,7 +224,6 @@
       });
     });
 
-    modalClose.addEventListener("click", closeModal);
 
     modal.addEventListener("click", (e) => {
       if (e.target === modal) closeModal();
