@@ -1178,23 +1178,6 @@ body.is-scrolling #hintDown{
   color: rgba(70, 40, 55, 0.85);
 }
 
-.modal-close{
-  margin-top: 16px;
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 13px;
-  color: #9a5067;
-
-  border: none;
-  background: transparent;
-  cursor: pointer;
-
-  padding: 8px 10px;
-  border-radius: 12px;
-
-  transition: opacity .2s ease;
-}
-
-.modal-close:hover{ opacity: .75; }
 .film-card{ overflow: visible !important; }
 .film-poster{ margin: 0 !important; }
 @media (hover: hover) and (pointer: fine){
