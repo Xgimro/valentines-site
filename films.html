@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Фильмы</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+</head>
+
+<body class="page-clean">
+
+  <header class="back-header">
+    <a href="index.html" class="back-link">← назад</a>
+  </header>
+
+  <main class="page-content">
+
+    <section class="films-grid" aria-label="Список фильмов">
+
+      <!-- Добавляй/редактируй текст в data-desc -->
+      <article class="film-card"
+        data-title="American Psycho"
+        data-desc="Твой текст про фильм (без спойлеров). Почему нравится/какой вайб/что цепляет."
+      >
+        <img class="film-poster" src="images/americanpsycho.jpg" alt="American Psycho">
+      </article>
+
+      <article class="film-card"
+        data-title="Ammonite"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/ammonite.jpg" alt="Ammonite">
+      </article>
+
+      <article class="film-card"
+        data-title="Atlantis"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/atlantis.jpg" alt="Atlantis">
+      </article>
+
+      <article class="film-card"
+        data-title="Avatar"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/avatar.jpg" alt="Avatar">
+      </article>
+
+      <article class="film-card"
+        data-title="Beethoven"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/beethoven.jpg" alt="Beethoven">
+      </article>
+
+      <article class="film-card"
+        data-title="Big Mama"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/bigmama.jpg" alt="Big Mama">
+      </article>
+
+      <article class="film-card"
+        data-title="Boy"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/boy.jpg" alt="Boy">
+      </article>
+
+      <article class="film-card"
+        data-title="Casper"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/casper.jpg" alt="Casper">
+      </article>
+
+      <article class="film-card"
+        data-title="Cemetery"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/cemetery.jpg" alt="Cemetery">
+      </article>
+
+      <article class="film-card"
+        data-title="Club"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/club.jpg" alt="Club">
+      </article>
+
+      <article class="film-card"
+        data-title="Colette"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/colette.jpg" alt="Colette">
+      </article>
+
+      <article class="film-card"
+        data-title="Conscience"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/conscience.jpg" alt="Conscience">
+      </article>
+
+      <article class="film-card"
+        data-title="Dallas Club"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/dallasclub.jpg" alt="Dallas Club">
+      </article>
+
+      <article class="film-card"
+        data-title="Dances"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/dances.jpg" alt="Dances">
+      </article>
+
+      <article class="film-card"
+        data-title="Despicable"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/despicable.jpg" alt="Despicable">
+      </article>
+
+      <article class="film-card"
+        data-title="Divergent"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/divergent.jpg" alt="Divergent">
+      </article>
+
+      <article class="film-card"
+        data-title="Don't Cry"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/dontcry.jpg" alt="Don't Cry">
+      </article>
+
+      <article class="film-card"
+        data-title="Dumbo"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/dumbo.jpg" alt="Dumbo">
+      </article>
+
+      <article class="film-card"
+        data-title="Earth"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/earth.jpg" alt="Earth">
+      </article>
+
+      <article class="film-card"
+        data-title="Enemy"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/enemy.jpg" alt="Enemy">
+      </article>
+
+      <article class="film-card"
+        data-title="Enough"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/enough.jpg" alt="Enough">
+      </article>
+
+      <article class="film-card"
+        data-title="Fifth"
+        data-desc="Твой текст про фильм."
+      >
+        <img class="film-poster" src="images/fifth.jpg" alt="Fifth">
+      </article>
+
+    </section>
+  </main>
+
+  <!-- МОДАЛЬНОЕ ОКНО -->
+  <div class="film-modal" id="filmModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+
+      <button class="modal-close" id="modalClose" type="button">закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("filmModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModal(title, desc){
+      modalTitle.textContent = title || "";
+      modalDesc.textContent = desc || "";
+      modal.hidden = false;
+      requestAnimationFrame(() => modal.classList.add("show"));
+    }
+
+    function closeModal(){
+      modal.classList.remove("show");
+      setTimeout(() => { modal.hidden = true; }, 200);
+    }
+
+    document.querySelectorAll(".film-card").forEach(card => {
+      card.addEventListener("click", () => {
+        openModal(card.dataset.title, card.dataset.desc);
+      });
+    });
+
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+  </script>
+
+</body>
+</html>
