@@ -1,4 +1,11 @@
+/* ======================================================
+   BASE / FIXES
+   ====================================================== */
+
 * { box-sizing: border-box; }
+
+/* чтобы hidden ВСЕГДА работал (iOS/blur/modals) */
+[hidden] { display: none !important; }
 
 :root{
   --pad: clamp(16px, 4vw, 28px);
@@ -10,21 +17,336 @@
   --loveSize: clamp(64px, 12vw, 170px);
 }
 
+html, body { height: 100%; }
+
 body{
   margin: 0;
   font-family: Georgia, serif;
   background: #f6f3ef;
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== 1 СЛАЙД ===== */
+/* блокировка скролла, когда открыта модалка */
+.no-scroll{
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* ======================================================
+   HEADER — верхняя панель (чуть уже + ярче розовый)
+   ====================================================== */
+
+.top-menu{
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+
+  display: flex;
+  justify-content: center;
+
+  z-index: 50;
+}
+
+.top-menu-inner{
+  width: 100%;
+  max-width: none;
+
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 var(--pad);
+
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* закругляем края шапки */
+  border-radius: 18px;
+
+  /* тень */
+  box-shadow:
+    0 8px 24px rgba(255,120,170,.18),
+    0 2px 6px rgba(0,0,0,.06);
+
+  border: 1px solid rgba(255,150,185,.25);
+}
+
+
+/* чтобы 1 экран не перекрывался фикс-шапкой */
+
+  .hero{
+  padding-top: calc(var(--pad) + 70px);
+}
+/* кнопки в шапке */
+.thoughts-btn,
+.burger-btn{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: clamp(12px,2.6vw,14px);
+  letter-spacing: .04em;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  /* было #f48aa6 */
+color: #a16176;
+
+  padding: 6px 2px;
+}
+
+.thoughts-btn:hover,
+.burger-btn:hover{ opacity: .7; }
+
+.burger-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.burger-icon{
+  display:grid;
+  gap:4px;
+}
+
+.burger-icon span{
+  width:18px;
+  height:2px;
+
+  /* было #f48aa6 */
+ background:#a16176;
+
+  border-radius:999px;
+  transition: .25s;
+}
+
+/* бургер превращается в крестик при открытом меню */
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(1){
+  transform: translateY(6px) rotate(45deg);
+}
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(2){
+  opacity:0;
+}
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(3){
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* чтобы 1 экран не перекрывался фикс-шапкой */
+.hero{
+  padding-top: calc(var(--pad) + 64px);
+}
+
+/* кнопки в шапке */
+.thoughts-btn,
+.burger-btn{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: clamp(12px,2.6vw,14px);
+  letter-spacing: .04em;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  color: #f48aa6;
+
+  padding: 8px 4px;
+}
+
+.thoughts-btn:hover,
+.burger-btn:hover{ opacity: .65; 
+ color:#8e4c60;}
+
+.burger-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.burger-icon{
+  display:grid;
+  gap:4px;
+}
+
+.burger-icon span{
+  width:18px;
+  height:2px;
+ background:#8e4c60;
+  border-radius:999px;
+  transition: .25s;
+}
+
+/* (опционально) бургер превращается в крестик при открытом меню */
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(1){
+  transform: translateY(6px) rotate(45deg);
+}
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(2){
+  opacity:0;
+}
+.burger-btn[aria-expanded="true"] .burger-icon span:nth-child(3){
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ======================================================
+   MENU DROPDOWN (под шапкой)
+   ====================================================== */
+
+.menu-dropdown{
+  position: fixed;
+   top: 74px;
+  right: var(--pad);
+  z-index: 60;
+
+  display: grid;
+  gap: 10px;
+
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255,150,185,0.30);
+  border-radius: 18px;
+  padding: 12px;
+
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.menu-item{
+  font-family: "Montserrat Alternates", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  text-decoration: none;
+  color: rgba(70, 40, 55, 0.86);
+
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.menu-item:hover{
+  background: rgba(255,150,185,0.20);
+}
+
+/* ======================================================
+   THOUGHTS MODAL
+   ====================================================== */
+
+.thoughts-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  padding: var(--pad);
+  padding-bottom: max(var(--pad), env(safe-area-inset-bottom));
+}
+
+.thoughts-window{
+  width: min(92vw, 560px);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.16);
+
+  overflow: hidden;
+}
+
+.thoughts-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 14px 16px;
+
+  /* белая шапка */
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid rgba(255,150,185,0.25);
+
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+
+  /* розовый текст */
+  color: #f48aa6;
+}
+
+.close-btn{
+  border: none;
+  cursor: pointer;
+  background: transparent;
+
+  font-size: 26px;
+  line-height: 1;
+
+  color: #f48aa6;
+  padding: 0 6px;
+}
+
+.close-btn:hover{ opacity: .7; }
+
+.thoughts-area{
+  width: 100%;
+  min-height: 44vh;
+  resize: none;
+  border: none;
+  outline: none;
+
+  padding: 16px;
+
+  font-family: "Montserrat Alternates", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+
+  color: rgba(70, 40, 55, 0.86);
+  background: transparent;
+}
+
+.thoughts-footer{
+  padding: 10px 16px 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.saved-label{
+  font-family: "Rubik Mono One", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: rgba(70, 40, 55, 0.65);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.saved-label.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======================================================
+   1 СЛАЙД
+   ====================================================== */
+
 .hero{
   position: relative;
+  min-height: 100vh;
   min-height: 100svh;
+
   overflow: hidden;
   display: grid;
   place-items: center;
-  padding: var(--pad);
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  padding-bottom: var(--pad);
 }
 
 /* слово "любовь" */
@@ -45,11 +367,9 @@ body{
   user-select: none;
   pointer-events: none;
 
-  /* пульсация (усилено для iPhone) */
-  animation: lovePulse 2.2s ease-in-out infinite;
-  will-change: transform, opacity, filter;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
+  /* пульсация */
+  animation: lovePulse 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* розовый круг позади "любовь" */
@@ -70,40 +390,17 @@ body{
 
   filter: blur(4px);
 
-  /* "дыхание" свечения */
-  animation: glowPulse 2.2s ease-in-out infinite;
-  will-change: transform, opacity, filter;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
+  /* пульсация */
+  animation: lovePulse 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
-@keyframes lovePulse{
-  0%, 100%{
-    transform: translateZ(0) scale(1);
-    opacity: 0.88;
-    filter: blur(2.2px);
-  }
-  50%{
-    transform: translateZ(0) scale(1.07);
-    opacity: 1;
-    filter: blur(3.8px);
-  }
+@keyframes lovePulse {
+  0%, 100% { transform: scale(1); opacity: 0.96; }
+  50%      { transform: scale(1.03); opacity: 1; }
 }
 
-@keyframes glowPulse{
-  0%, 100%{
-    transform: translateZ(0) scale(1);
-    opacity: 0.92;
-    filter: blur(4px);
-  }
-  50%{
-    transform: translateZ(0) scale(1.10);
-    opacity: 1;
-    filter: blur(7px);
-  }
-}
-
-/* подсказка "пролистай вниз" */
+/* подсказка */
 .hint{
   position: absolute;
   bottom: max(18px, env(safe-area-inset-bottom));
@@ -144,7 +441,10 @@ body{
   }
 }
 
-/* ===== 2 СЛАЙД — СЕРДЦЕ ===== */
+/* ======================================================
+   2 СЛАЙД — СЕРДЦЕ
+   ====================================================== */
+
 .heart-screen{
   height: 120vh;
 }
@@ -163,15 +463,17 @@ body{
   opacity: 0;
   filter: blur(14px);
   transform: translateY(0);
-  will-change: opacity, filter, transform;
-  transition: opacity 220ms linear, filter 220ms linear, transform 220ms linear;
+  will-change: opacity, filter;
+  transition: opacity 220ms linear, filter 220ms linear;
 }
 
 /* сердце-контейнер */
 .heart-shape{
   position: relative;
+
   width: clamp(260px, 64vw, 640px);
   height: clamp(240px, 58vw, 580px);
+
   display: grid;
   place-items: center;
 }
@@ -194,7 +496,7 @@ body{
   mask-size: 100% 100%;
 }
 
-/* внутреннее сердце */
+/* ВНУТРЕННЕЕ СЕРДЦЕ */
 .heart-shape::before{
   inset: -6%;
   background: radial-gradient(circle at 50% 42%,
@@ -203,12 +505,13 @@ body{
     rgba(255,175,205,0.42) 62%,
     rgba(255,205,225,0.00) 86%
   );
+
   filter: blur(18px);
   transform: scale(1.08);
   opacity: 0.98;
 }
 
-/* внешний ореол */
+/* ВНЕШНИЙ ОРЕОЛ */
 .heart-shape::after{
   inset: -18%;
   background: radial-gradient(circle at 50% 44%,
@@ -216,6 +519,7 @@ body{
     rgba(255,175,205,0.26) 48%,
     rgba(255,205,225,0.00) 80%
   );
+
   filter: blur(46px);
   transform: scale(1.22);
   opacity: 0.90;
@@ -225,10 +529,13 @@ body{
 .heart-inner{
   position: relative;
   z-index: 2;
+
   display: grid;
   gap: 10px;
   place-items: center;
   text-align: center;
+
+  transform: translateY(0);
 }
 
 .heart-line.small{
@@ -247,9 +554,14 @@ body{
   color: rgba(70, 40, 55, 0.82);
 }
 
-/* ===== 3 СЛАЙД — СЧЁТЧИК ===== */
+/* ======================================================
+   3 СЛАЙД — СЧЁТЧИК
+   ====================================================== */
+
 .counter-screen{
+  min-height: 100vh;
   min-height: 100svh;
+
   display: grid;
   place-items: center;
   padding: var(--pad);
@@ -272,18 +584,18 @@ body{
   width: min(88vw, 640px);
 
   padding:
-    clamp(110px, 17vh, 150px)
+    clamp(100px, 14vw, 200px)
     clamp(18px, 5vw, 18px)
-    clamp(110px, 17vh, 150px);
+    clamp(100px, 14vw, 200px);
 
-  border-radius: 28px;
+  border-radius: 26px;
 
-  background: rgba(255, 140, 175, 0.34);
-  border: 1px solid rgba(255, 135, 170, 0.44);
+  background: rgba(235, 120, 155, 0.32);
+  border: 1px solid rgba(230, 115, 150, 0.42);
 
   box-shadow:
-    0 18px 40px rgba(200, 90, 130, 0.22),
-    inset 0 0 0 1px rgba(255,255,255,0.30);
+    0 18px 40px rgba(190, 80, 120, 0.22),
+    inset 0 0 0 1px rgba(255,255,255,0.34);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -306,18 +618,17 @@ body{
 }
 
 .tile{
-  width: clamp(90px, 18vw, 140px);
+  width: clamp(92px, 18vw, 150px);
   padding: 14px 12px;
   border-radius: 18px;
 
-  background: rgba(255, 255, 255, 0.70);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid rgba(70, 40, 55, 0.10);
 
   box-shadow:
-    0 18px 40px rgba(0,0,0,0.08),
-    inset 0 0 0 1px rgba(255,255,255,0.20);
+    0 10px 22px rgba(0,0,0,0.08);
 
-  color: rgba(70, 40, 55, 0.80);
+  color: rgba(70, 40, 55, 0.82);
   text-align: center;
 }
 
@@ -364,9 +675,14 @@ body{
   line-height: 1.5;
 }
 
-/* ===== 4 СЛАЙД — КАРТОЧКА ===== */
+/* ======================================================
+   4 СЛАЙД — КАРТОЧКА
+   ====================================================== */
+
 .content{
+  min-height: 100vh;
   min-height: 100svh;
+
   display:flex;
   justify-content:center;
   align-items:flex-start;
@@ -376,10 +692,13 @@ body{
 .container{
   background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(8px);
+
   padding: var(--cardPadY) var(--cardPadX);
   width: var(--cardW);
+
   border-radius: clamp(16px, 3vw, 22px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+
   text-align: center;
 }
 
@@ -395,6 +714,7 @@ body{
   transform: translateY(18px);
   transition: opacity 700ms ease, transform 700ms ease;
 }
+
 .reveal.show{
   opacity: 1;
   transform: translateY(0);
@@ -412,6 +732,7 @@ body{
   border-bottom: 1px dashed rgba(70,40,55,.25);
   transition: opacity .2s;
 }
+
 .more-btn:hover{ opacity: .75; }
 
 .secret{
@@ -419,476 +740,140 @@ body{
   font-size: var(--textSize);
   line-height: 1.6;
   color: rgba(70, 40, 55, 0.82);
+
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 400ms ease, transform 400ms ease;
 }
+
 .secret.show{
   opacity: 1;
   transform: translateY(0);
 }
+
 .secret p{ margin: 12px 0; }
 
-/* ===== ШАПКА МЕНЮ ===== */
-.top-menu{
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+/* ======================================================
+   ВНУТРЕННИЕ СТРАНИЦЫ
+   ====================================================== */
 
-  height: 56px;
-
-  background: rgba(255, 255, 255, 0.70);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border-radius: 18px;
-  border: 1px solid rgba(255, 150, 185, 0.34);
-
-  box-shadow: 0 14px 32px rgba(150,60,95,.22);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 10;
+.page-clean{
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #f6f3ef;
 }
 
-/* кнопка "твои мысли" */
-.thoughts-btn{
-  position: absolute;
-  left: 14px;
-
-  background: none;
-  border: none;
-
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-
-  color: rgba(70, 40, 55, 0.82);
-  cursor: pointer;
-
-  padding: 6px 8px;
-  border-radius: 10px;
-  transition: background .2s;
+.back-header{
+  padding: var(--pad);
+  padding-bottom: 0;
 }
-.thoughts-btn:hover{ background: rgba(255, 150, 185, 0.18); }
 
-/* бургер-меню */
-.burger-btn{
-  position: absolute;
-  right: 14px;
-
-  display: flex;
+.back-link{
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 
-  background: none;
-  border: none;
-
-  cursor: pointer;
-  padding: 6px 8px;
-  border-radius: 10px;
-
-  transition: background .2s;
-}
-.burger-btn:hover{ background: rgba(255,150,185,.18); }
-
-.burger-icon{
-  display: grid;
-  gap: 4px;
-}
-.burger-icon span{
-  display: block;
-  width: 18px;
-  height: 2px;
-  background: rgba(70,40,55,.82);
-  border-radius: 2px;
-}
-.burger-label{
   font-family: "Rubik Mono One", sans-serif;
-  font-size: 12px;
-  letter-spacing: .06em;
-  color: rgba(70,40,55,.82);
-}
-
-/* ===== ВЫПАДАЮЩЕЕ МЕНЮ ===== */
-.menu-dropdown{
-  position: absolute;
-  top: 76px;
-  right: 12px;
-
-  width: min(72vw, 260px);
-  padding: 10px;
-
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255,150,185,0.32);
-  border-radius: 18px;
-
-  box-shadow: 0 18px 40px rgba(150,60,95,0.18);
-  z-index: 50;
-}
-.menu-dropdown[hidden]{ display: none !important; }
-
-.menu-item{
-  width: 100%;
-  text-align: left;
-
-  background: transparent;
-  border: none;
-
-  padding: 12px 12px;
-  border-radius: 14px;
-
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 12px;
+  font-size: clamp(12px, 2.4vw, 14px);
   letter-spacing: 0.03em;
 
-  color: rgba(70,40,55,0.82);
-  cursor: pointer;
-
+  color: rgba(70, 40, 55, 0.85);
   text-decoration: none;
-  display: block;
 
-  transition: background .22s ease, transform .18s ease, color .18s ease;
-}
-.menu-item:hover{
-  background: rgba(255,150,185,0.18);
-  transform: translateX(4px);
-  color: rgba(70,40,55,0.95);
-}
-
-/* ===== МОДАЛКА "ТВОИ МЫСЛИ" ===== */
-.thoughts-modal{
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,.28);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 200;
-}
-.thoughts-modal[hidden]{ display: none !important; }
-
-.thoughts-window{
-  width: min(86vw, 420px);
-  max-height: 76vh;
-
-  background: rgba(255,255,255,.96);
-
-  border-radius: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.22);
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-
-  margin: 0 auto;
-}
-
-.thoughts-header{
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  border-bottom: 1px solid rgba(70,40,55,.1);
-}
-
-/* ✅ ВОТ ТУТ: ШРИФТ НАД ПОЛЕМ ВВОДА */
-.thoughts-header span{
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(70,40,55,.82);
-}
-
-.close-btn{
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  line-height: 1;
-  color: rgba(70,40,55,.7);
-}
-
-/* поле ввода */
-#thoughtsArea,
-.thoughts-area{
-  width: 100%;
-  min-height: 180px;
-
-  border: none;
-  outline: none;
-  resize: none;
-
-  padding: 14px 16px;
-
-  font-family: "Montserrat Alternates", sans-serif; /* ✅ второй вариант */
-  font-size: 16px;
-  line-height: 1.6;
-
-  background: transparent;
-  color: rgba(40,25,35,.92);
-}
-
-.thoughts-footer{
-  padding: 10px 16px;
-  text-align: right;
-  font-size: 12px;
-  color: rgba(70,40,55,.6);
-}
-
-.saved-label{
-  opacity: 0;
-  transition: .3s;
-}
-.saved-label.show{ opacity: 1; }
-
-/* фикс прыжка при модалке */
-body.modal-open{
-  position: fixed;
-  width: 100%;
-}
-
-/* ===== СТРАНИЦЫ (sonya / ksyusha) ===== */
-.page-clean{
-  min-height: 100svh;
-  background: #ffffff;
-  padding: 20px;
-}
-.back-header{ padding: 10px 0 20px; }
-.back-link{
-  text-decoration: none;
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 12px;
-  color: rgba(70,40,55,.8);
-}
-.page-content{
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-.page-content h1{
-  font-family: "Rubik Mono One", sans-serif;
-  margin-bottom: 12px;
-}
-
-/* ===== FIX iPhone: убираем залипание sticky ===== */
-@supports (-webkit-touch-callout: none) {
-  .heart-screen{ height: 100svh; }
-
-  .heart-sticky{
-    position: relative;
-    height: auto;
-    display: grid;
-    place-items: center;
-  }
-
-  /* чуть легче для Safari */
-  .heart-shape::before{ filter: blur(14px); }
-  .heart-shape::after{ filter: blur(36px); }
-}
-/* Делаем "небольшое напоминание" белым */
-.heart-line.small,
-.heart-line.big{
-  color: rgba(255, 255, 255, 0.96);
-  text-shadow: 0 6px 18px rgba(150, 60, 95, 0.28);
-}
-/* ===== ФОРС: розовый цвет для "твои мысли" и "меню" ===== */
-.top-menu .thoughts-btn{
-  color: rgba(200, 60, 110, 0.95) !important;
-}
-
-.top-menu .burger-label{
-  color: rgba(200, 60, 110, 0.95) !important;
-}
-
-.top-menu .burger-icon span{
-  background: rgba(200, 60, 110, 0.95) !important;
-}
-
-/* розовый фон кнопки меню */
-.top-menu .burger-btn{
-  background: rgba(255, 150, 185, 0.32) !important;
-  border: 1px solid rgba(255, 135, 170, 0.45) !important;
-}
-
-.top-menu .burger-btn:hover{
-  background: rgba(255, 150, 185, 0.44) !important;
-}
-/* УБИРАЕМ РОЗОВУЮ РАМКУ ВОКРУГ КНОПКИ МЕНЮ */
-.top-menu .burger-btn{
-  border: none !important;
-  background: transparent !important;
-}
-
-/* Делаем розовыми ТОЛЬКО элементы внутри */
-.top-menu .burger-label{
-  color: rgba(200, 60, 110, 0.95) !important;
-}
-
-.top-menu .burger-icon span{
-  background: rgba(200, 60, 110, 0.95) !important;
-}
-
-/* лёгкая подсветка при наведении, БЕЗ рамки */
-.top-menu .burger-btn:hover{
-  background: rgba(255,150,185,0.18) !important;
-}
-/* Делаем "небольшое напоминание" таким же цветом, как счётчик */
-.heart-line.small,
-.heart-line.big{
-  color: rgba(70, 40, 55, 0.80);
-  text-shadow: none;       /* убираем белые свечения, если оставались */
-}
-/* ===== Страница Соня и Матвей ===== */
-
-.friends-container{
-  max-width: 620px;
-  margin: 20px auto 40px;
-
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border-radius: 22px;
-  padding: 22px 20px;
+  background: rgba(255, 150, 185, 0.36);
+  border: 1px solid rgba(255, 150, 185, 0.38);
+  border-radius: 14px;
+  padding: 10px 14px;
 
   box-shadow:
-    0 16px 34px rgba(150,60,95,.12),
-    inset 0 0 0 1px rgba(255,255,255,.45);
+    0 10px 24px rgba(255, 140, 180, 0.18),
+    inset 0 0 0 1px rgba(255,255,255,0.30);
 }
 
-.friends-title{
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 18px;
-  letter-spacing: .04em;
+.back-link:hover{ opacity: .85; }
 
-  color: rgba(70,40,55,.86);
-  margin: 0 0 14px;
-  text-align: center;
+.page-content{
+  padding: var(--pad);
+  padding-top: clamp(14px, 3vw, 18px);
+  display: grid;
+  place-items: start center;
+}
+
+.page-content h1{
+  font-family: "Rubik Mono One", sans-serif;
+  margin: 6px 0 14px;
+  font-size: clamp(22px, 4.6vw, 34px);
+  letter-spacing: 0.02em;
+  color: rgba(70, 40, 55, 0.86);
+}
+
+.friends-container{
+  width: var(--cardW);
+  max-width: min(92vw, 560px);
 }
 
 .friends-text{
-  font-family: Georgia, serif;
-  font-size: 15px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+
+  padding: var(--cardPadY) var(--cardPadX);
+  border-radius: clamp(16px, 3vw, 22px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+
+  font-family: "Montserrat Alternates", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: var(--textSize);
   line-height: 1.6;
-
-  color: rgba(70,40,55,.82);
-  white-space: pre-line;   /* чтобы переносы работали как в тексте */
-}
-/* ===== КНОПКА НАЗАД КАК НА СТРАНИЦЕ КСЮША ===== */
-
-.back-header{
-  max-width: 620px;
-  margin: 12px auto 8px;
-  padding: 0 12px;
+  color: rgba(70, 40, 55, 0.82);
 }
 
-/* используем ТОТ ЖЕ стиль что у пунктов меню */
-.back-like-ksusha{
-  display: inline-block;
-  text-decoration: none;
+.friends-text p{ margin: 12px 0; }
 
-  /* 1) тот же шрифт, что в меню */
-  font-family: "Rubik Mono One", sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.03em;
-
-  /* 2) ТОТ ЖЕ розовый цвет, что у меню */
-  color: rgba(180,70,110,.88);
-
-  /* 3) ТОТ ЖЕ фон, что у пунктов меню */
-  background: rgba(255,150,185,0.18);
-
-  border: 1px solid rgba(255,150,185,0.32);
-  border-radius: 14px;
-
-  padding: 10px 12px;
-
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  box-shadow: 0 8px 20px rgba(150,60,95,.12);
-
-  transition:
-    background .22s ease,
-    transform .18s ease,
-    color .18s ease;
-}
-
-/* ТОЧНО ТАКОЙ ЖЕ hover как у меню */
-.back-like-ksusha:hover{
-  background: rgba(255,150,185,0.28);
-  transform: translateX(-3px);
-  color: rgba(180,70,110,1);
-}
-/* =========================
-   iPhone XR и выше (iOS Safari)
-   фиксы разрывов + убираем залипание sticky
-   ========================= */
-
-/* универсально: правильная высота экрана на мобилках */
-.hero,
-.counter-screen,
-.content{
-  min-height: 100svh;
-}
-
-/* сердце: не делаем 120vh, чтобы не было огромных дыр */
-.heart-screen{
-  height: 100svh;
-}
-
-/* ---------- iOS (XR и выше) ---------- */
-@supports (-webkit-touch-callout: none){
-
-  /* убираем лаги/залипание sticky */
-  .heart-sticky{
-    position: relative;
-    top: auto;
-    height: auto;
+/* ======================================================
+   iOS оптимизации (не ломают дизайн)
+   ====================================================== */
+@supports (-webkit-touch-callout: none) {
+  .bg-word,
+  .bg-word::before,
+  .heart-wrap,
+  .counter-wrap,
+  .hint,
+  .menu-dropdown,
+  .thoughts-modal,
+  .thoughts-window {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
-  /* делаем одинаковые “стыки” между блоками */
-  .heart-screen{
-    height: auto;
-    padding: 0 var(--pad);
-    margin: 0;
+  .hero,
+  .heart-sticky,
+  .counter-screen {
+    contain: paint;
   }
 
-  /* сердце по центру и без лишнего воздуха */
-  .heart-wrap{
-    opacity: 1;
-    filter: blur(0);
-    transition: none;
-    margin: 0;
-    padding: 12svh 0 8svh; /* верх/низ — ровные отступы */
+  @media (hover: none) and (pointer: coarse) {
+    .hint,
+    .counter-wrap,
+    .menu-dropdown,
+    .thoughts-window {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
   }
-
-  /* счётчик поднимаем ближе к сердцу */
-  .counter-screen{
-    min-height: auto;
-    padding: 8svh var(--pad) 10svh; /* сверху меньше воздуха */
-    margin: 0;
-  }
-
-  /* уменьшаем внутренние “гигантские” паддинги у блока */
-  .counter-wrap{
-    padding: 64px 18px 72px; /* вместо 110–150px */
-  }
-
-  /* чтобы backdrop-filter не лагал на iOS — облегчаем */
-  .heart-shape::before{ filter: blur(14px); }
-  .heart-shape::after { filter: blur(34px); }
 }
+
+@media (prefers-reduced-motion: reduce){
+  .bg-word, .bg-word::before { animation: none !important; }
+}
+.thoughts-btn,
+.burger-btn{
+  color:#9a5067 !important;
+}
+
+.burger-icon span{
+  background:#9a5067 !important;
+}
+.top-menu-inner{
+  backdrop-filter: blur(6px);
+}
+
