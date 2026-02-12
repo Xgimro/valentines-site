@@ -956,4 +956,21 @@ color: #a16176;
     0 10px 26px rgba(255,120,170,0.16),
     0 3px 10px rgba(0,0,0,0.08);
 }
+/* =========================================
+   iPhone: отключаем тяжелые эффекты во время скролла
+   ========================================= */
+body.is-scrolling .top-menu-inner,
+body.is-scrolling .menu-dropdown,
+body.is-scrolling .counter-wrap,
+body.is-scrolling .hint,
+body.is-scrolling .thoughts-window{
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* (опционально) если всё равно лаги: можно ещё облегчить blur-фильтры на время скролла */
+body.is-scrolling #loveWord,
+body.is-scrolling #hintDown{
+  filter: none !important;
+}
 
